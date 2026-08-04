@@ -747,4 +747,36 @@ settings.
 
 ## Time, Attendance & Leave
 
-![alt text](Usecase-Time-Attendance-Leave.jpg)
+![alt text](Time-Attendance-Leave.jpg)
+
+## Authentication and Controller Access
+
+![alt text](Authentication-Access-Control.jpg)
+
+## Organization Management
+
+![alt text](Organization-Management.jpg)
+
+## Employee Management
+
+![alt text](Employee-Management.jpg)
+
+## Recruitment And Employee Lifecycle
+
+![alt text](Recruitmen-Employee-Lifecycle.jpg)
+
+## Project Task Management
+
+![alt text](Project-Task-Management.jpg)
+
+## Productivity Monitoring
+
+![alt text](Productivity-Monitoring.jpg)
+
+## Payroll & Performance
+
+![alt text](Payroll-Performance.jpg)
+
+## Reports System Administration
+
+![alt text](Reports-System-Administration.jpg)
