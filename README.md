@@ -586,40 +586,65 @@ HR Staff includes recruitment responsibilities instead of using a separate Recru
 | 75 | UC-ADMIN-07 | Reports & System Administration | Administration & Audit | View Audit Logs and Change History | HR Staff & Recruiter; System Administrator | Review user actions, configuration changes, data updates, and historical audit records. |
 ---
 
-# Usecase
+## Usecase Diagram
 
-## Time, Attendance & Leave
+01.
+ ![alt text](image.png)
 
-![alt text](Time-Attendance-Leave.jpg)
+# Process User Interact
 
-## Authentication and Controller Access
+## Offboarding, handover, asset return and access revocation
 
-![alt text](Authentication-Access-Control.jpg)
+![alt text](offboard.drawio.png)
 
-## Organization Management
+## Onboarding and account provisioning
 
-![alt text](Organization-Management.jpg)
+![alt text](onboard.drawio.png)
 
-## Employee Management
+## Interview scheduling and evaluation
 
-![alt text](Employee-Management.jpg)
+![alt text](interview.drawio.png)
 
-## Recruitment And Employee Lifecycle
+## Attendance correction
 
-![alt text](Recruitmen-Employee-Lifecycle.jpg)
+![alt text](Attendance.drawio.png)
 
-## Project Task Management
+## Leave request and approval
 
-![alt text](Project-Task-Management.jpg)
+![alt text](Leave.drawio.png)
 
-## Productivity Monitoring
+## Timesheet submission, approval and locking
 
-![alt text](Productivity-Monitoring.jpg)
+![alt text](Timesheet.drawio.png)
 
-## Payroll & Performance
+## Goals and performance review
 
-![alt text](Payroll-Performance.jpg)
+![alt text](Goals.drawio.png)
 
-## Reports System Administration
+## Benefit enrollment
 
-![alt text](Reports-System-Administration.jpg)
+![alt text](Benefit.drawio.png)
+
+## Task assignment, progress and time tracking
+
+![alt text](Task.drawio.png)
+
+## Job offer and negotiation
+
+![alt text](Job.drawio.png)
+
+## Promotion or transfer
+
+![alt text](Promotion.drawio.png)
+
+## Electronic signature or policy acknowledgement
+
+![alt text](Electronic.drawio.png)
+
+## Shift creation, assignment and publishing
+
+![alt text](Shift.drawio.png)
+
+## Compensation change and approval
+
+![alt text](Compensation.drawio.png)
