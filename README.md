@@ -589,62 +589,62 @@ HR Staff includes recruitment responsibilities instead of using a separate Recru
 ## Usecase Diagram
 
 01.
- ![alt text](image.png)
+ ![alt text](docs/assets/image.png)
 
 # Process User Interact
 
 ## Offboarding, handover, asset return and access revocation
 
-![alt text](offboard.drawio.png)
+![alt text](docs/assets/offboard.drawio.png)
 
 ## Onboarding and account provisioning
 
-![alt text](onboard.drawio.png)
+![alt text](docs/assets/onboard.drawio.png)
 
 ## Interview scheduling and evaluation
 
-![alt text](interview.drawio.png)
+![alt text](docs/assets/interview.drawio.png)
 
 ## Attendance correction
 
-![alt text](Attendance.drawio.png)
+![alt text](docs/assets/Attendance.drawio.png)
 
 ## Leave request and approval
 
-![alt text](Leave.drawio.png)
+![alt text](docs/assets/Leave.drawio.png)
 
 ## Timesheet submission, approval and locking
 
-![alt text](Timesheet.drawio.png)
+![alt text](docs/assets/Timesheet.drawio.png)
 
 ## Goals and performance review
 
-![alt text](Goals.drawio.png)
+![alt text](docs/assets/Goals.drawio.png)
 
 ## Benefit enrollment
 
-![alt text](Benefit.drawio.png)
+![alt text](docs/assets/Benefit.drawio.png)
 
 ## Task assignment, progress and time tracking
 
-![alt text](Task.drawio.png)
+![alt text](docs/assets/Task.drawio.png)
 
 ## Job offer and negotiation
 
-![alt text](Job.drawio.png)
+![alt text](docs/assets/Job.drawio.png)
 
 ## Promotion or transfer
 
-![alt text](Promotion.drawio.png)
+![alt text](docs/assets/Promotion.drawio.png)
 
 ## Electronic signature or policy acknowledgement
 
-![alt text](Electronic.drawio.png)
+![alt text](docs/assets/Electronic.drawio.png)
 
 ## Shift creation, assignment and publishing
 
-![alt text](Shift.drawio.png)
+![alt text](docs/assets/Shift.drawio.png)
 
 ## Compensation change and approval
 
-![alt text](Compensation.drawio.png)
+![alt text](docs/assets/Compensation.drawio.png)
