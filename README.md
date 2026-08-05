@@ -589,62 +589,214 @@ HR Staff includes recruitment responsibilities instead of using a separate Recru
 ## Usecase Diagram
 
 01.
- ![alt text](docs/assets/image.png)
+![alt text](docs/assets/usecase/01_UC-AUTH-01_-_Login_Logout.png)
+02.
+![alt text](docs/assets/usecase/02_UC-AUTH-02_-_Reset_Password.png)
+03.
+![alt text](docs/assets/usecase/03_UC-AUTH-03_-_Refresh_Session.png)
+04.
+![alt text](docs/assets/usecase/04_UC-AUTH-04_-_Create_and_Link_User_Account.png)
+05.
+![alt text](docs/assets/usecase/05_UC-AUTH-05_-_Activate_Deactivate_or_Lock_Account.png)
+06.
+![alt text](docs/assets/usecase/06_UC-AUTH-06_-_Assign_Roles.png)
+07.
+![alt text](docs/assets/usecase/07_UC-AUTH-07_-_Configure_Permissions_and_Access_Scope.png)
+08.
+![alt text](docs/assets/usecase/08_UC-ORG-01_-_Manage_Company_Departments_and_Teams.png)
+09.
+![alt text](docs/assets/usecase/09_UC-ORG-02_-_Define_Job_Positions.png)
+10.
+![alt text](docs/assets/usecase/10_UC-ORG-03_-_Assign_Reporting_Manager.png)
+11.
+![alt text](docs/assets/usecase/11_UC-ORG-04_-_Assign_Employee_to_Organization_Unit.png)
+12.
+![alt text](docs/assets/usecase/12_UC-ORG-05_-_View_Organization_Chart.png)
+13.
+![alt text](docs/assets/usecase/13_UC-ORG-06_-_Manage_Work_Locations_and_Work_Modes.png)
+14.
+![alt text](docs/assets/usecase/14_UC-EMP-01_-_View_and_Search_Employee_Directory.png)
+15.
+![alt text](docs/assets/usecase/15_UC-EMP-02_-_Create_Employee_Profile.png)
+16.
+![alt text](docs/assets/usecase/16_UC-EMP-03_-_View_or_Update_Personal_and_Contact_Information.png)
+17.
+![alt text](docs/assets/usecase/17_UC-EMP-04_-_Manage_Emergency_Contacts.png)
+18.
+![alt text](docs/assets/usecase/18_UC-EMP-05_-_Assign_Department_Position_and_Manager.png)
+19.
+![alt text](docs/assets/usecase/19_UC-EMP-06_-_Update_Employment_Status.png)
+20.
+![alt text](docs/assets/usecase/20_UC-EMP-07_-_Promote_or_Transfer_Employee.png)
+21.
+![alt text](docs/assets/usecase/21_UC-EMP-08_-_View_Employment_History.png)
+22.
+![alt text](docs/assets/usecase/22_UC-EMP-09_-_Manage_Employee_Documents.png)
+23.
+![alt text](docs/assets/usecase/23_UC-EMP-10_-_Request_Electronic_Signature_or_Policy_Acknowledgement.png)
+24.
+![alt text](docs/assets/usecase/24_UC-REC-01_-_Create_and_Publish_Job_Opening.png)
+25.
+![alt text](docs/assets/usecase/25_UC-REC-02_-_Close_Job_Opening.png)
+26.
+![alt text](docs/assets/usecase/26_UC-REC-03_-_Screen_Candidate_Application.png)
+27.
+![alt text](docs/assets/usecase/27_UC-REC-04_-_Schedule_Interview_and_Record_Evaluation.png)
+28.
+![alt text](docs/assets/usecase/28_UC-REC-05_-_Send_Job_Offer.png)
+29.
+![alt text](docs/assets/usecase/29_UC-REC-06_-_Convert_Candidate_to_Employee.png)
+30.
+![alt text](docs/assets/usecase/30_UC-REC-07_-_Complete_Onboarding_Checklist_and_Documents.png)
+31.
+![alt text](docs/assets/usecase/31_UC-REC-08_-_Provision_Account_and_Organization_Assignment.png)
+32.
+![alt text](docs/assets/usecase/32_UC-REC-09_-_Complete_Handover_Asset_Return_and_Access_Revocation.png)
+33.
+![alt text](docs/assets/usecase/33_UC-TIME-01_-_Start_or_Stop_Timer.png)
+34.
+![alt text](docs/assets/usecase/34_UC-TIME-02_-_Select_Project_and_Task.png)
+35.
+![alt text](docs/assets/usecase/35_UC-TIME-03_-_Add_or_Edit_Manual_Time_Entry.png)
+36.
+![alt text](docs/assets/usecase/36_UC-TIME-04_-_Check_In_or_Check_Out.png)
+37.
+![alt text](docs/assets/usecase/37_UC-TIME-05_-_Track_Break_and_Overtime.png)
+38.
+![alt text](docs/assets/usecase/38_UC-TIME-06_-_Request_Attendance_Correction.png)
+39.
+![alt text](docs/assets/usecase/39_UC-TIME-07_-_View_and_Submit_Timesheet.png)
+40.
+![alt text](docs/assets/usecase/40_UC-TIME-08_-_Approve_or_Reject_Timesheet.png)
+41.
+![alt text](docs/assets/usecase/41_UC-TIME-09_-_Lock_or_Reopen_Timesheet.png)
+42.
+![alt text](docs/assets/usecase/42_UC-TIME-10_-_Create_and_Assign_Work_Shift.png)
+43.
+![alt text](docs/assets/usecase/43_UC-TIME-11_-_View_Team_Schedule.png)
+44.
+![alt text](docs/assets/usecase/44_UC-TIME-12_-_Submit_Leave_Request.png)
+45.
+![alt text](docs/assets/usecase/45_UC-TIME-13_-_Approve_or_Reject_Leave_and_View_Balance.png)
+46.
+![alt text](docs/assets/usecase/46_UC-PROJ-01_-_Create_or_Update_Project.png)
+47.
+![alt text](docs/assets/usecase/47_UC-PROJ-02_-_Assign_Project_Manager_and_Members.png)
+48.
+![alt text](docs/assets/usecase/48_UC-PROJ-03_-_View_Project_Status_and_Progress.png)
+49.
+![alt text](docs/assets/usecase/49_UC-PROJ-04_-_Create_and_Assign_Task.png)
+50.
+![alt text](docs/assets/usecase/50_UC-PROJ-05_-_Set_Priority_Estimate_and_Deadline.png)
+51.
+![alt text](docs/assets/usecase/51_UC-PROJ-06_-_Update_Task_Status_and_Track_Time.png)
+52.
+![alt text](docs/assets/usecase/52_UC-PROJ-07_-_View_Member_Workload.png)
+53.
+![alt text](docs/assets/usecase/53_UC-PROJ-08_-_Set_and_Monitor_Budget_with_Alerts.png)
+54.
+![alt text](docs/assets/usecase/54_UC-PROD-01_-_View_Activity_Level_and_Active_Time.png)
+55.
+![alt text](docs/assets/usecase/55_UC-PROD-02_-_Detect_Idle_Time_and_Working_Status.png)
+56.
+![alt text](docs/assets/usecase/56_UC-PROD-03_-_View_Screenshot_Timeline.png)
+57.
+![alt text](docs/assets/usecase/57_UC-PROD-04_-_Track_Application_and_Website_Usage.png)
+58.
+![alt text](docs/assets/usecase/58_UC-PROD-05_-_Track_GPS_and_Geofence.png)
+59.
+![alt text](docs/assets/usecase/59_UC-PROD-06_-_View_Location_History.png)
+60.
+![alt text](docs/assets/usecase/60_UC-PROD-07_-_Configure_Monitoring_Policies.png)
+61.
+![alt text](docs/assets/usecase/61_UC-PAY-01_-_Configure_Salary_or_Hourly_Rate.png)
+62.
+![alt text](docs/assets/usecase/62_UC-PAY-02_-_Import_Approved_Hours_and_Calculate_Overtime.png)
+63.
+![alt text](docs/assets/usecase/63_UC-PAY-03_-_Calculate_and_Review_Payroll.png)
+64.
+![alt text](docs/assets/usecase/64_UC-PAY-04_-_Record_Payment_and_View_History.png)
+65.
+![alt text](docs/assets/usecase/65_UC-PAY-05_-_Manage_Compensation.png)
+66.
+![alt text](docs/assets/usecase/66_UC-PAY-06_-_Manage_Benefits.png)
+67.
+![alt text](docs/assets/usecase/67_UC-PAY-07_-_Manage_Employee_Goals.png)
+68.
+![alt text](docs/assets/usecase/68_UC-PAY-08_-_Conduct_Performance_Reviews_and_Feedback.png)
+69.
+![alt text](docs/assets/usecase/69_UC-ADMIN-01_-_View_HR_and_Workforce_Dashboard.png)
+70.
+![alt text](docs/assets/usecase/70_UC-ADMIN-02_-_View_Project_Productivity_and_Payroll_Summary.png)
+71.
+![alt text](docs/assets/usecase/71_UC-ADMIN-03_-_Generate_and_Export_Reports.png)
+72.
+![alt text](docs/assets/usecase/72_UC-ADMIN-04_-_Configure_Approval_Workflows.png)
+73.
+![alt text](docs/assets/usecase/73_UC-ADMIN-05_-_Send_Reminders_and_Status_Notifications.png)
+74.
+![alt text](docs/assets/usecase/74_UC-ADMIN-06_-_Configure_System_Settings_and_Integrations.png)
+75.
+![alt text](docs/assets/usecase/75_UC-ADMIN-07_-_View_Audit_Logs_and_Change_History.png)
 
 # Process User Interact
 
 ## Offboarding, handover, asset return and access revocation
 
-![alt text](docs/assets/offboard.drawio.png)
+![alt text](docs/assets/swimlands/offboard.drawio.png)
 
 ## Onboarding and account provisioning
 
-![alt text](docs/assets/onboard.drawio.png)
+![alt text](docs/assets/swimlands/onboard.drawio.png)
 
 ## Interview scheduling and evaluation
 
-![alt text](docs/assets/interview.drawio.png)
+![alt text](docs/assets/swimlands/interview.drawio.png)
 
 ## Attendance correction
 
-![alt text](docs/assets/Attendance.drawio.png)
+![alt text](docs/assets/swimlands/Attendance.drawio.png)
 
 ## Leave request and approval
 
-![alt text](docs/assets/Leave.drawio.png)
+![alt text](docs/assets/swimlands/Leave.drawio.png)
 
 ## Timesheet submission, approval and locking
 
-![alt text](docs/assets/Timesheet.drawio.png)
+![alt text](docs/assets/swimlands/Timesheet.drawio.png)
 
 ## Goals and performance review
 
-![alt text](docs/assets/Goals.drawio.png)
+![alt text](docs/assets/swimlands/Goals.drawio.png)
 
 ## Benefit enrollment
 
-![alt text](docs/assets/Benefit.drawio.png)
+![alt text](docs/assets/swimlands/Benefit.drawio.png)
 
 ## Task assignment, progress and time tracking
 
-![alt text](docs/assets/Task.drawio.png)
+![alt text](docs/assets/swimlands/Task.drawio.png)
 
 ## Job offer and negotiation
 
-![alt text](docs/assets/Job.drawio.png)
+![alt text](docs/assets/swimlands/Job.drawio.png)
 
 ## Promotion or transfer
 
-![alt text](docs/assets/Promotion.drawio.png)
+![alt text](docs/assets/swimlands/Promotion.drawio.png)
 
 ## Electronic signature or policy acknowledgement
 
-![alt text](docs/assets/Electronic.drawio.png)
+![alt text](docs/assets/swimlands/Electronic.drawio.png)
 
 ## Shift creation, assignment and publishing
 
-![alt text](docs/assets/Shift.drawio.png)
+![alt text](docs/assets/swimlands/Shift.drawio.png)
 
 ## Compensation change and approval
 
-![alt text](docs/assets/Compensation.drawio.png)
+![alt text](docs/assets/swimlands/Compensation.drawio.png)
+
+# Information Architecture
+
+https://app.visily.ai/projects/c9744e1a-380b-4668-b2d8-c996815cff57/boards/2685034
