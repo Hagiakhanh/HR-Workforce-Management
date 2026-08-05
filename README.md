@@ -796,3 +796,7 @@ HR Staff includes recruitment responsibilities instead of using a separate Recru
 ## Compensation change and approval
 
 ![alt text](docs/assets/swimlands/Compensation.drawio.png)
+
+# Information Architecture
+
+https://app.visily.ai/projects/c9744e1a-380b-4668-b2d8-c996815cff57/boards/2685034
