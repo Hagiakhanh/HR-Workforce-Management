@@ -406,10 +406,10 @@ The platform includes seven main roles. `Recruiter` is merged into `HR Staff` be
 |---|---|
 | Candidate | Participates in recruitment before becoming an employee |
 | Employee | Uses self-service and performs daily workforce activities |
-| Manager / Team Lead | Manages employees, attendance, approvals and team performance |
+| Team Lead | Manages employees, attendance, approvals and team performance |
 | Project Manager | Manages projects, tasks, resources and budgets |
-| HR Staff & Recruiter | Manages organization data, employees, recruitment and employee lifecycle |
-| Payroll Officer | Manages payroll, compensation and benefits |
+| HR Staff | Manages organization data, employees, recruitment and employee lifecycle |
+| Accountant | Manages payroll, compensation and benefits |
 | System Administrator | Manages accounts, permissions, policies, integrations and audits |
 
 ---
@@ -436,9 +436,9 @@ The platform includes seven main roles. `Recruiter` is merged into `HR Staff` be
 
 ---
 
-## 4. Manager / Team Lead
+## 4. Team Lead
 
-A manager also has normal employee permissions within the permitted access scope.
+A team lead also has normal employee permissions within the permitted access scope.
 
 - View direct reports and team workforce status.
 - Approve timesheets, leave and attendance corrections.
@@ -464,7 +464,7 @@ A project manager may also have normal employee permissions.
 
 ---
 
-## 6. HR Staff & Recruiter
+## 6. HR Staff
 
 HR Staff includes recruitment responsibilities instead of using a separate Recruiter role.
 
@@ -479,7 +479,7 @@ HR Staff includes recruitment responsibilities instead of using a separate Recru
 
 ---
 
-## 7. Payroll Officer
+## 7. Accountant
 
 - Configure salary and hourly rates.
 - Retrieve approved working hours and overtime.
@@ -518,30 +518,30 @@ These use cases establish the core flow of the system:
 | Priority Order | Use Case ID | Module | High-Level Use Case | Main Actors |
 |---:|---|---|---|---|
 | 1 | `UC-AUTH-01` | Authentication & Access Control | Login / Logout | All platform users |
-| 2 | `UC-AUTH-04` | Authentication & Access Control | Create and Link User Account | HR Staff & Recruiter; System Administrator |
+| 2 | `UC-AUTH-04` | Authentication & Access Control | Create and Link User Account | HR Staff; System Administrator |
 | 3 | `UC-AUTH-06` | Authentication & Access Control | Assign Roles | System Administrator |
 | 4 | `UC-AUTH-07` | Authentication & Access Control | Configure Permissions and Access Scope | System Administrator |
-| 5 | `UC-AUTH-05` | Authentication & Access Control | Activate, Deactivate or Lock Account | HR Staff & Recruiter; System Administrator |
+| 5 | `UC-AUTH-05` | Authentication & Access Control | Activate, Deactivate or Lock Account | HR Staff; System Administrator |
 | 6 | `UC-AUTH-02` | Authentication & Access Control | Reset Password | All platform users |
 | 7 | `UC-AUTH-03` | Authentication & Access Control | Refresh Session | All platform users |
-| 8 | `UC-ORG-01` | Organization Management | Manage Company, Departments and Teams | HR Staff & Recruiter; System Administrator |
-| 9 | `UC-ORG-02` | Organization Management | Define Job Positions | HR Staff & Recruiter |
-| 10 | `UC-EMP-02` | Employee Management | Create Employee Profile | HR Staff & Recruiter |
-| 11 | `UC-EMP-05` | Employee Management | Assign Department, Position and Manager | HR Staff & Recruiter |
-| 12 | `UC-ORG-04` | Organization Management | Assign Employee to Organization Unit | HR Staff & Recruiter |
-| 13 | `UC-ORG-03` | Organization Management | Assign Reporting Manager | HR Staff & Recruiter |
-| 14 | `UC-EMP-06` | Employee Management | Update Employment Status | HR Staff & Recruiter |
-| 15 | `UC-EMP-01` | Employee Management | View and Search Employee Directory | Employee; Manager / Team Lead; HR Staff & Recruiter |
-| 16 | `UC-PROJ-01` | Project & Task Management | Create or Update Project | Manager / Team Lead; Project Manager |
-| 17 | `UC-PROJ-02` | Project & Task Management | Assign Project Manager and Members | Manager / Team Lead; Project Manager |
-| 18 | `UC-PROJ-04` | Project & Task Management | Create and Assign Task | Manager / Team Lead; Project Manager |
+| 8 | `UC-ORG-01` | Organization Management | Manage Company, Departments and Teams | HR Staff; System Administrator |
+| 9 | `UC-ORG-02` | Organization Management | Define Job Positions | HR Staff |
+| 10 | `UC-EMP-02` | Employee Management | Create Employee Profile | HR Staff |
+| 11 | `UC-EMP-05` | Employee Management | Assign Department, Position and Manager | HR Staff |
+| 12 | `UC-ORG-04` | Organization Management | Assign Employee to Organization Unit | HR Staff |
+| 13 | `UC-ORG-03` | Organization Management | Assign Reporting Manager | HR Staff |
+| 14 | `UC-EMP-06` | Employee Management | Update Employment Status | HR Staff |
+| 15 | `UC-EMP-01` | Employee Management | View and Search Employee Directory | Employee; Team Lead; HR Staff |
+| 16 | `UC-PROJ-01` | Project & Task Management | Create or Update Project | Team Lead; Project Manager |
+| 17 | `UC-PROJ-02` | Project & Task Management | Assign Project Manager and Members | Team Lead; Project Manager |
+| 18 | `UC-PROJ-04` | Project & Task Management | Create and Assign Task | Team Lead; Project Manager |
 | 19 | `UC-TIME-02` | Time, Attendance & Leave | Select Project and Task | Employee |
 | 20 | `UC-TIME-01` | Time, Attendance & Leave | Start or Stop Timer | Employee |
 | 21 | `UC-TIME-03` | Time, Attendance & Leave | Add or Edit Manual Time Entry | Employee |
-| 22 | `UC-PROJ-06` | Project & Task Management | Update Task Status and Track Time | Employee; Manager / Team Lead; Project Manager |
+| 22 | `UC-PROJ-06` | Project & Task Management | Update Task Status and Track Time | Employee; Team Lead; Project Manager |
 | 23 | `UC-TIME-04` | Time, Attendance & Leave | Check In or Check Out | Employee |
 | 24 | `UC-TIME-07` | Time, Attendance & Leave | View and Submit Timesheet | Employee |
-| 25 | `UC-TIME-08` | Time, Attendance & Leave | Approve or Reject Timesheet | Manager / Team Lead; HR Staff & Recruiter |
+| 25 | `UC-TIME-08` | Time, Attendance & Leave | Approve or Reject Timesheet | Team Lead; HR Staff |
 
 ---
 
@@ -551,31 +551,31 @@ These use cases complete major operational workflows, including attendance corre
 
 | Priority Order | Use Case ID | Module | High-Level Use Case | Main Actors |
 |---:|---|---|---|---|
-| 26 | `UC-TIME-09` | Time, Attendance & Leave | Lock or Reopen Timesheet | Manager / Team Lead; HR Staff & Recruiter |
-| 27 | `UC-TIME-06` | Time, Attendance & Leave | Request Attendance Correction | Employee; Manager / Team Lead; HR Staff & Recruiter |
-| 28 | `UC-TIME-05` | Time, Attendance & Leave | Track Break and Overtime | Employee; Manager / Team Lead |
+| 26 | `UC-TIME-09` | Time, Attendance & Leave | Lock or Reopen Timesheet | Team Lead; HR Staff |
+| 27 | `UC-TIME-06` | Time, Attendance & Leave | Request Attendance Correction | Employee; Team Lead; HR Staff |
+| 28 | `UC-TIME-05` | Time, Attendance & Leave | Track Break and Overtime | Employee; Team Lead |
 | 29 | `UC-TIME-12` | Time, Attendance & Leave | Submit Leave Request | Employee |
-| 30 | `UC-TIME-13` | Time, Attendance & Leave | Approve or Reject Leave and View Balance | Employee; Manager / Team Lead; HR Staff & Recruiter |
-| 31 | `UC-PROJ-05` | Project & Task Management | Set Priority, Estimate and Deadline | Manager / Team Lead; Project Manager |
-| 32 | `UC-PROJ-03` | Project & Task Management | View Project Status and Progress | Employee; Manager / Team Lead; Project Manager |
-| 33 | `UC-PROJ-07` | Project & Task Management | View Member Workload | Manager / Team Lead; Project Manager |
-| 34 | `UC-TIME-10` | Time, Attendance & Leave | Create and Assign Work Shift | Manager / Team Lead; HR Staff & Recruiter |
-| 35 | `UC-TIME-11` | Time, Attendance & Leave | View Team Schedule | Employee; Manager / Team Lead; HR Staff & Recruiter |
-| 36 | `UC-PROD-07` | Productivity Monitoring | Configure Monitoring Policies | HR Staff & Recruiter; System Administrator |
-| 37 | `UC-PROD-01` | Productivity Monitoring | View Activity Level and Active Time | Employee; Manager / Team Lead |
-| 38 | `UC-PROD-02` | Productivity Monitoring | Detect Idle Time and Working Status | Employee; Manager / Team Lead |
-| 39 | `UC-ADMIN-07` | Reports & System Administration | View Audit Logs and Change History | HR Staff & Recruiter; System Administrator |
+| 30 | `UC-TIME-13` | Time, Attendance & Leave | Approve or Reject Leave and View Balance | Employee; Team Lead; HR Staff |
+| 31 | `UC-PROJ-05` | Project & Task Management | Set Priority, Estimate and Deadline | Team Lead; Project Manager |
+| 32 | `UC-PROJ-03` | Project & Task Management | View Project Status and Progress | Employee; Team Lead; Project Manager |
+| 33 | `UC-PROJ-07` | Project & Task Management | View Member Workload | Team Lead; Project Manager |
+| 34 | `UC-TIME-10` | Time, Attendance & Leave | Create and Assign Work Shift | Team Lead; HR Staff |
+| 35 | `UC-TIME-11` | Time, Attendance & Leave | View Team Schedule | Employee; Team Lead; HR Staff |
+| 36 | `UC-PROD-07` | Productivity Monitoring | Configure Monitoring Policies | HR Staff; System Administrator |
+| 37 | `UC-PROD-01` | Productivity Monitoring | View Activity Level and Active Time | Employee; Team Lead |
+| 38 | `UC-PROD-02` | Productivity Monitoring | Detect Idle Time and Working Status | Employee; Team Lead |
+| 39 | `UC-ADMIN-07` | Reports & System Administration | View Audit Logs and Change History | HR Staff; System Administrator |
 | 40 | `UC-ADMIN-06` | Reports & System Administration | Configure System Settings and Integrations | System Administrator |
-| 41 | `UC-PAY-01` | Payroll & Performance | Configure Salary or Hourly Rate | HR Staff & Recruiter; Payroll Officer |
-| 42 | `UC-PAY-02` | Payroll & Performance | Import Approved Hours and Calculate Overtime | Payroll Officer |
-| 43 | `UC-PAY-03` | Payroll & Performance | Calculate and Review Payroll | Payroll Officer |
-| 44 | `UC-PAY-04` | Payroll & Performance | Record Payment and View History | Employee; Payroll Officer |
-| 45 | `UC-REC-01` | Recruitment & Employee Lifecycle | Create and Publish Job Opening | HR Staff & Recruiter |
-| 46 | `UC-REC-03` | Recruitment & Employee Lifecycle | Screen Candidate Application | HR Staff & Recruiter |
-| 47 | `UC-REC-04` | Recruitment & Employee Lifecycle | Schedule Interview and Record Evaluation | Candidate; Manager / Team Lead; HR Staff & Recruiter |
-| 48 | `UC-REC-05` | Recruitment & Employee Lifecycle | Send Job Offer | Candidate; HR Staff & Recruiter |
-| 49 | `UC-REC-06` | Recruitment & Employee Lifecycle | Convert Candidate to Employee | HR Staff & Recruiter |
-| 50 | `UC-REC-08` | Recruitment & Employee Lifecycle | Provision Account and Organization Assignment | HR Staff & Recruiter; System Administrator |
+| 41 | `UC-PAY-01` | Payroll & Performance | Configure Salary or Hourly Rate | HR Staff; Accountant |
+| 42 | `UC-PAY-02` | Payroll & Performance | Import Approved Hours and Calculate Overtime | Accountant |
+| 43 | `UC-PAY-03` | Payroll & Performance | Calculate and Review Payroll | Accountant |
+| 44 | `UC-PAY-04` | Payroll & Performance | Record Payment and View History | Employee; Accountant |
+| 45 | `UC-REC-01` | Recruitment & Employee Lifecycle | Create and Publish Job Opening | HR Staff |
+| 46 | `UC-REC-03` | Recruitment & Employee Lifecycle | Screen Candidate Application | HR Staff |
+| 47 | `UC-REC-04` | Recruitment & Employee Lifecycle | Schedule Interview and Record Evaluation | Candidate; Team Lead; HR Staff |
+| 48 | `UC-REC-05` | Recruitment & Employee Lifecycle | Send Job Offer | Candidate; HR Staff |
+| 49 | `UC-REC-06` | Recruitment & Employee Lifecycle | Convert Candidate to Employee | HR Staff |
+| 50 | `UC-REC-08` | Recruitment & Employee Lifecycle | Provision Account and Organization Assignment | HR Staff; System Administrator |
 
 ---
 
@@ -585,25 +585,25 @@ These use cases provide a more complete employee lifecycle, workforce administra
 
 | Priority Order | Use Case ID | Module | High-Level Use Case | Main Actors |
 |---:|---|---|---|---|
-| 51 | `UC-REC-07` | Recruitment & Employee Lifecycle | Complete Onboarding Checklist and Documents | Candidate; Employee; Manager / Team Lead; HR Staff & Recruiter |
-| 52 | `UC-REC-09` | Recruitment & Employee Lifecycle | Complete Handover, Asset Return and Access Revocation | Employee; Manager / Team Lead; HR Staff & Recruiter; System Administrator |
-| 53 | `UC-REC-02` | Recruitment & Employee Lifecycle | Close Job Opening | HR Staff & Recruiter |
-| 54 | `UC-EMP-03` | Employee Management | View or Update Personal and Contact Information | Employee; HR Staff & Recruiter |
-| 55 | `UC-EMP-09` | Employee Management | Manage Employee Documents | Employee; HR Staff & Recruiter |
-| 56 | `UC-EMP-10` | Employee Management | Request Electronic Signature or Policy Acknowledgement | Employee; HR Staff & Recruiter |
-| 57 | `UC-EMP-07` | Employee Management | Promote or Transfer Employee | Manager / Team Lead; HR Staff & Recruiter |
-| 58 | `UC-EMP-08` | Employee Management | View Employment History | Employee; Manager / Team Lead; HR Staff & Recruiter |
-| 59 | `UC-EMP-04` | Employee Management | Manage Emergency Contacts | Employee; HR Staff & Recruiter |
-| 60 | `UC-ORG-06` | Organization Management | Manage Work Locations and Work Modes | HR Staff & Recruiter; System Administrator |
-| 61 | `UC-ORG-05` | Organization Management | View Organization Chart | Employee; Manager / Team Lead; Project Manager; HR Staff & Recruiter |
-| 62 | `UC-PAY-05` | Payroll & Performance | Manage Compensation | HR Staff & Recruiter; Payroll Officer |
-| 63 | `UC-PAY-06` | Payroll & Performance | Manage Benefits | Employee; HR Staff & Recruiter; Payroll Officer |
-| 64 | `UC-PAY-07` | Payroll & Performance | Manage Employee Goals | Employee; Manager / Team Lead; HR Staff & Recruiter |
-| 65 | `UC-PAY-08` | Payroll & Performance | Conduct Performance Reviews and Feedback | Employee; Manager / Team Lead; HR Staff & Recruiter |
-| 66 | `UC-PROD-03` | Productivity Monitoring | View Screenshot Timeline | Employee; Manager / Team Lead |
-| 67 | `UC-PROD-04` | Productivity Monitoring | Track Application and Website Usage | Employee; Manager / Team Lead |
-| 68 | `UC-PROD-05` | Productivity Monitoring | Track GPS and Geofence | Employee; Manager / Team Lead; System Administrator |
-| 69 | `UC-PROD-06` | Productivity Monitoring | View Location History | Employee; Manager / Team Lead; HR Staff & Recruiter |
+| 51 | `UC-REC-07` | Recruitment & Employee Lifecycle | Complete Onboarding Checklist and Documents | Candidate; Employee; Team Lead; HR Staff |
+| 52 | `UC-REC-09` | Recruitment & Employee Lifecycle | Complete Handover, Asset Return and Access Revocation | Employee; Team Lead; HR Staff; System Administrator |
+| 53 | `UC-REC-02` | Recruitment & Employee Lifecycle | Close Job Opening | HR Staff |
+| 54 | `UC-EMP-03` | Employee Management | View or Update Personal and Contact Information | Employee; HR Staff |
+| 55 | `UC-EMP-09` | Employee Management | Manage Employee Documents | Employee; HR Staff |
+| 56 | `UC-EMP-10` | Employee Management | Request Electronic Signature or Policy Acknowledgement | Employee; HR Staff |
+| 57 | `UC-EMP-07` | Employee Management | Promote or Transfer Employee | Team Lead; HR Staff |
+| 58 | `UC-EMP-08` | Employee Management | View Employment History | Employee; Team Lead; HR Staff |
+| 59 | `UC-EMP-04` | Employee Management | Manage Emergency Contacts | Employee; HR Staff |
+| 60 | `UC-ORG-06` | Organization Management | Manage Work Locations and Work Modes | HR Staff; System Administrator |
+| 61 | `UC-ORG-05` | Organization Management | View Organization Chart | Employee; Team Lead; Project Manager; HR Staff |
+| 62 | `UC-PAY-05` | Payroll & Performance | Manage Compensation | HR Staff; Accountant |
+| 63 | `UC-PAY-06` | Payroll & Performance | Manage Benefits | Employee; HR Staff; Accountant |
+| 64 | `UC-PAY-07` | Payroll & Performance | Manage Employee Goals | Employee; Team Lead; HR Staff |
+| 65 | `UC-PAY-08` | Payroll & Performance | Conduct Performance Reviews and Feedback | Employee; Team Lead; HR Staff |
+| 66 | `UC-PROD-03` | Productivity Monitoring | View Screenshot Timeline | Employee; Team Lead |
+| 67 | `UC-PROD-04` | Productivity Monitoring | Track Application and Website Usage | Employee; Team Lead |
+| 68 | `UC-PROD-05` | Productivity Monitoring | Track GPS and Geofence | Employee; Team Lead; System Administrator |
+| 69 | `UC-PROD-06` | Productivity Monitoring | View Location History | Employee; Team Lead; HR Staff |
 
 ---
 
@@ -613,12 +613,12 @@ These use cases should be implemented after core operational data and workflows 
 
 | Priority Order | Use Case ID | Module | High-Level Use Case | Main Actors |
 |---:|---|---|---|---|
-| 70 | `UC-ADMIN-05` | Reports & System Administration | Send Reminders and Status Notifications | HR Staff & Recruiter; System Administrator |
-| 71 | `UC-ADMIN-04` | Reports & System Administration | Configure Approval Workflows | HR Staff & Recruiter; System Administrator |
-| 72 | `UC-ADMIN-01` | Reports & System Administration | View HR and Workforce Dashboard | Manager / Team Lead; HR Staff & Recruiter; System Administrator |
-| 73 | `UC-ADMIN-02` | Reports & System Administration | View Project, Productivity and Payroll Summary | Manager / Team Lead; Project Manager; HR Staff & Recruiter; Payroll Officer; System Administrator |
-| 74 | `UC-ADMIN-03` | Reports & System Administration | Generate and Export Reports | Manager / Team Lead; Project Manager; HR Staff & Recruiter; Payroll Officer; System Administrator |
-| 75 | `UC-PROJ-08` | Project & Task Management | Set and Monitor Budget with Alerts | Manager / Team Lead; Project Manager |
+| 70 | `UC-ADMIN-05` | Reports & System Administration | Send Reminders and Status Notifications | HR Staff; System Administrator |
+| 71 | `UC-ADMIN-04` | Reports & System Administration | Configure Approval Workflows | HR Staff; System Administrator |
+| 72 | `UC-ADMIN-01` | Reports & System Administration | View HR and Workforce Dashboard | Team Lead; HR Staff; System Administrator |
+| 73 | `UC-ADMIN-02` | Reports & System Administration | View Project, Productivity and Payroll Summary | Team Lead; Project Manager; HR Staff; Accountant; System Administrator |
+| 74 | `UC-ADMIN-03` | Reports & System Administration | Generate and Export Reports | Team Lead; Project Manager; HR Staff; Accountant; System Administrator |
+| 75 | `UC-PROJ-08` | Project & Task Management | Set and Monitor Budget with Alerts | Team Lead; Project Manager |
 
 ---
 
