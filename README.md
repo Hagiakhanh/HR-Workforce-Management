@@ -662,61 +662,61 @@ These use cases should be implemented after core operational data and workflows 
 
 # Process User Interact
 
-## Offboarding, handover, asset return and access revocation
+## Promote or Transfer Employee
 
-![alt text](docs/assets/swimlands/offboard.drawio.png)
+![alt text](docs/assets/swimlands/promotion.png)
 
-## Onboarding and account provisioning
+## Electronic Signature or Policy Acknowledgement
 
-![alt text](docs/assets/swimlands/onboard.drawio.png)
+![alt text](docs/assets/swimlands/Electronic-Signature-Policy-Acknowledgement.png)
 
-## Interview scheduling and evaluation
+## Schedule Interview and Record Evaluation
 
-![alt text](docs/assets/swimlands/interview.drawio.png)
+![alt text](docs/assets/swimlands/Schedule-Interview-Record-Evaluation.png)
 
-## Attendance correction
+## Send and Negotiate Job Offer
 
-![alt text](docs/assets/swimlands/Attendance.drawio.png)
+![alt text](docs/assets/swimlands/Send-Negotiate-Job-Offer.png)
 
-## Leave request and approval
+## Onboarding and Account Provisioning
 
-![alt text](docs/assets/swimlands/Leave.drawio.png)
+![alt text](docs/assets/swimlands/Onboarding-Account-Provisioning.png)
 
-## Timesheet submission, approval and locking
+## Offboarding, Handover, Asset Return and Access Revocation
 
-![alt text](docs/assets/swimlands/Timesheet.drawio.png)
+![alt text](docs/assets/swimlands/Offboarding-Handover-Asset-Return-Access-Revocation.png)
 
-## Goals and performance review
+## Attendance Correction
 
-![alt text](docs/assets/swimlands/Goals.drawio.png)
+![alt text](docs/assets/swimlands/Attendance-Correction.png)
 
-## Benefit enrollment
+## Timesheet Submission, Approval, Reopen and Lock
 
-![alt text](docs/assets/swimlands/Benefit.drawio.png)
+![alt text](docs/assets/swimlands/Timesheet-Submission-Approval-Reopen-Lock.png)
 
-## Task assignment, progress and time tracking
+## Leave Request and Approval
 
-![alt text](docs/assets/swimlands/Task.drawio.png)
+![alt text](docs/assets/swimlands/Leave-Request-Approval.png)
 
-## Job offer and negotiation
+## Create and Assign Work Shift
 
-![alt text](docs/assets/swimlands/Job.drawio.png)
+![alt text](docs/assets/swimlands/Create-Assign-Work-Shift.png)
 
-## Promotion or transfer
+## Task Assignment, Progress and Time Tracking
 
-![alt text](docs/assets/swimlands/Promotion.drawio.png)
+![alt text](docs/assets/swimlands/Task-Assignment-Progress-Time-Tracking.png)
 
-## Electronic signature or policy acknowledgement
+## Compensation Change and Approval
 
-![alt text](docs/assets/swimlands/Electronic.drawio.png)
+![alt text](docs/assets/swimlands/Compensation-Change-Approval.png)
 
-## Shift creation, assignment and publishing
+## Benefit Enrollment
 
-![alt text](docs/assets/swimlands/Shift.drawio.png)
+![alt text](docs/assets/swimlands/Benefit-Enrollment.png)
 
-## Compensation change and approval
+## Employee Goals and Performance Review
 
-![alt text](docs/assets/swimlands/Compensation.drawio.png)
+![alt text](docs/assets/swimlands/Employee-Goals-Performance-Review.png)
 
 # Information Architecture
 
