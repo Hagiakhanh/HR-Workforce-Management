@@ -626,39 +626,39 @@ These use cases should be implemented after core operational data and workflows 
 
 ### Authentication & Access Control
 
-![alt text](docs/assets/usecase/HR-WorkFoce-Usecase-Authentication-Access-Control.drawio.png)
+![alt text](docs/assets/usecase/HR-WorkFoce-Usecase-Authentication-Access-Control-v2.drawio.png)
 
 ### Organization Management
 
-![alt text](docs/assets/usecase/HR-WorkFoce-Usecase-Organization-Management.drawio.png)
+![alt text](docs/assets/usecase/HR-WorkFoce-Usecase-Organization-Management-v2.drawio.png)
 
 ### Employee Management
 
-![alt text](docs/assets/usecase/HR-WorkFoce-Usecase-Employee-Management.drawio.png)
+![alt text](docs/assets/usecase/HR-WorkFoce-Usecase-Employee-Management-v2.drawio.png)
 
 ### Time & Attendance Management
 
-![alt text](docs/assets/usecase/HR-WorkFoce-Usecase-Time-Attendance-Leave.drawio.png)
+![alt text](docs/assets/usecase/HR-WorkFoce-Usecase-Time-Attendance-Leave-v2.drawio.png)
 
 ### Project & Task Management
 
-![alt text](docs/assets/usecase/HR-WorkFoce-Usecase-Project-Task-Management.drawio.png)
+![alt text](docs/assets/usecase/HR-WorkFoce-Usecase-Project-Task-Management-v2.drawio.png)
 
 ### Payroll & Performance
 
-![alt text](docs/assets/usecase/HR-WorkFoce-Usecase-Payroll-Performance.drawio.png)
+![alt text](docs/assets/usecase/HR-WorkFoce-Usecase-Payroll-Performance-v2.drawio.png)
 
 ### Recruitment & Employee Lifecycle
 
-![alt text](docs/assets/usecase/HR-WorkFoce-Usecase-Recruitment-Employee-Lifecycle.drawio.png)
+![alt text](docs/assets/usecase/HR-WorkFoce-Usecase-Recruitment-Employee-Lifecycle-v2.drawio.png)
 
 ### Productivity Monitoring
 
-![alt text](docs/assets/usecase/HR-WorkFoce-Usecase-Productivity-Monitoring.drawio.png)
+![alt text](docs/assets/usecase/HR-WorkFoce-Usecase-Productivity-Monitoring-v2.drawio.png)
 
 ### Reports & System Administration
 
-![alt text](docs/assets/usecase/HR-WorkFoce-Usecase-Reports-System-Administration.drawio.png)
+![alt text](docs/assets/usecase/HR-WorkFoce-Usecase-Reports-System-Administration-v2.drawio.png)
 
 # Process User Interact
 
