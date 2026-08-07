@@ -1,5 +1,9 @@
 # HR-Workforce-Management
 
+## Information Architecture
+
+https://www.relume.ai/app/project/P3510455_YXELzSJDc8T2OjU7C3qlEKHothe_wKvotzCyXKyHarU#mode=sitemap
+
 ## 0. Main Mindmap
 
 ```mermaid
@@ -717,7 +721,3 @@ These use cases should be implemented after core operational data and workflows 
 ## Employee Goals and Performance Review
 
 ![alt text](docs/assets/swimlands/Employee-Goals-Performance-Review.png)
-
-# Information Architecture
-
-https://app.visily.ai/projects/c9744e1a-380b-4668-b2d8-c996815cff57/boards/2685034
