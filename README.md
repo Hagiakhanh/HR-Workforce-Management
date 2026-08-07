@@ -4,6 +4,22 @@
 
 https://www.relume.ai/app/project/P3510455_YXELzSJDc8T2OjU7C3qlEKHothe_wKvotzCyXKyHarU#mode=sitemap
 
+### People Management
+
+![alt text](docs/assets/IA/Process-1.png)
+
+![alt text](docs/assets/IA/Process-2.png)
+
+![alt text](docs/assets/IA/Process-3.png)
+
+![alt text](docs/assets/IA/IA-1.png)
+
+![alt text](docs/assets/IA/IA-2.png)
+
+![alt text](docs/assets/IA/IA-3.png)
+
+![alt text](docs/assets/IA/IA-4.png)
+
 ## 0. Main Mindmap
 
 ```mermaid
