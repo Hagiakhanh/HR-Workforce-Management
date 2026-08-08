@@ -1,0 +1,10 @@
+{
+  "openapi": "3.0.4",
+  "info": {
+    "title": "HR-Platform API",
+    "description": "API for HR Platform",
+    "version": "v1"
+  },
+  "paths": { },
+  "components": { }
+}
