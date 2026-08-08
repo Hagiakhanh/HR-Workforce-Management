@@ -1,5 +1,9 @@
 # HR-Workforce-Management
 
+## UI/X Design
+
+https://www.figma.com/design/D35Ut0x0TXeRGMjvLaNiIt/PeopleManagement?node-id=4-2&p=f&t=aMOrVRPWsKsGRyuO-0
+
 ## Information Architecture
 
 https://www.relume.ai/app/project/P3510455_YXELzSJDc8T2OjU7C3qlEKHothe_wKvotzCyXKyHarU#mode=sitemap
