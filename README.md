@@ -2,7 +2,7 @@
 
 ## UI/X Design
 
-https://www.figma.com/design/D35Ut0x0TXeRGMjvLaNiIt/PeopleManagement?node-id=4-2&p=f&t=aMOrVRPWsKsGRyuO-0
+https://www.figma.com/design/lVYyY2rxIvDSMv5dHhUPAn/HR-Platform?node-id=0-1&t=s2k7yUaYU5qM7xkB-1
 
 ## Information Architecture
 
