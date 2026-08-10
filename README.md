@@ -8,6 +8,8 @@ https://www.figma.com/design/lVYyY2rxIvDSMv5dHhUPAn/HR-Platform?node-id=0-1&t=s2
 
 https://www.relume.ai/app/project/P3510455_YXELzSJDc8T2OjU7C3qlEKHothe_wKvotzCyXKyHarU#mode=sitemap
 
+![alt text](docs/assets/IA/sitemap.png)
+
 ### People Management
 
 ![alt text](docs/assets/IA/Process-1.png)
