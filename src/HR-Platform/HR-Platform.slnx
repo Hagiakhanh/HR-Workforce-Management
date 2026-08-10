@@ -1,4 +1,3 @@
 <Solution>
   <Project Path="HR-Platform.API/HR-Platform.API.csproj" />
-  <Project Path="HR-Platform.Domain/HR-Platform.Domain.csproj" />
 </Solution>
