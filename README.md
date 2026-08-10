@@ -1,5 +1,635 @@
 # HR-Workforce-Management
 
+# Entity Relationship Diagram (ERD) - Employee Management
+
+This section describes the ERD for the **Employee Management** module, derived directly from 36 UI screens located in `docs/assets/UI`.
+
+## 1. High-Level ERD (Overview - Compact Layout)
+
+Overview diagram using standard `erDiagram` notation (`||--o{`, `||--o|`, `}o--||`), organized in top-down layers for a clean, balanced layout:
+
+```mermaid
+erDiagram
+    %% Layer 1: Organization & System Accounts
+    ROLES ||--o{ USER_ROLES : "assigned"
+    USERS ||--o{ USER_ROLES : "has_roles"
+    COMPANIES ||--o{ DEPARTMENTS : "contains"
+    DEPARTMENTS ||--o{ POSITIONS : "defines"
+    DEPARTMENTS ||--o{ TEAMS : "contains"
+
+    %% Layer 2: Employees - Core Link
+    USERS ||--o| EMPLOYEES : "account"
+    DEPARTMENTS ||--o{ EMPLOYEES : "belongs_to"
+    POSITIONS ||--o{ EMPLOYEES : "position"
+
+    %% Layer 3: Employment Records & History
+    EMPLOYEES ||--o{ EMPLOYMENT_RECORDS : "records"
+    EMPLOYEES ||--o{ REPORTING_LINES : "reports"
+    EMPLOYEES ||--o{ EMPLOYMENT_HISTORIES : "history"
+
+    %% Layer 4: Contracts & Documents
+    EMPLOYEES ||--o{ CONTRACTS : "contracts"
+    CONTRACT_TYPES ||--o{ CONTRACTS : "type"
+    EMPLOYEES ||--o{ EMPLOYEE_DOCUMENTS : "documents"
+    DOCUMENT_TYPES ||--o{ EMPLOYEE_DOCUMENTS : "type"
+
+    %% Layer 5: Qualifications & Approval Requests
+    EMPLOYEES ||--o{ EDUCATIONS : "education"
+    EMPLOYEES ||--o{ CERTIFICATIONS : "certs"
+    EMPLOYEES ||--o{ REQUESTS : "submits"
+    REQUEST_TYPES ||--o{ REQUESTS : "type"
+    REQUESTS ||--o{ APPROVAL_STEPS : "steps"
+```
+
+---
+
+## 2. Detailed ERD by UI Screen Group (Tables, Fields & Keys)
+
+All UI screens are grouped into **7 functional groups**:
+
+### Group 1: Authentication & Access Control
+*Corresponding screens:* `01. Login`, `02. Reset Password`, `03. Forgot Password`, `Pop-up_ Compensation & Access` (System Access section).
+
+```mermaid
+erDiagram
+    users {
+        uuid id PK
+        string email UK
+        string password_hash
+        string status
+        boolean is_locked
+        datetime email_verified_at
+        datetime last_login_at
+        datetime created_at
+    }
+
+    employees {
+        uuid id PK
+        string employee_code UK
+        string first_name
+        string last_name
+        string preferred_name
+        string photo_url
+        string work_email UK
+        string personal_email
+        string work_phone
+        string personal_phone
+        string gender
+        string marital_status
+        string nationality
+        date date_of_birth
+        string status
+        date hire_date
+        uuid user_id FK
+    }
+
+    roles {
+        uuid id PK
+        string code UK
+        string name
+        string description
+    }
+
+    permissions {
+        uuid id PK
+        string code UK
+        string name
+        string module
+    }
+
+    user_roles {
+        uuid user_id PK, FK
+        uuid role_id PK, FK
+        datetime assigned_at
+    }
+
+    password_reset_tokens {
+        uuid id PK
+        uuid user_id FK
+        string token UK
+        datetime expires_at
+        boolean is_used
+    }
+
+    users ||--o{ user_roles : "has"
+    roles ||--o{ user_roles : "assigned_to"
+    users ||--o{ password_reset_tokens : "requests"
+    users ||--o| employees : "identity_of"
+```
+
+---
+
+### Group 2: Organization Structure & Reporting Lines (Organization Management)
+*Corresponding screens:* `Department`, `Department Detail`, `Create/Edit Department form`, `Position`, `Position Detail`, `Create/Edit Position form`, `Team`, `Team Detail`, `Create/Edit Team form`, `Assign manager popup`, `Assign member`, `Organization chart`, `Reporting lines`.
+
+```mermaid
+erDiagram
+    companies {
+        uuid id PK
+        string name
+        string registration_number
+        string country
+        string status 
+    }
+
+    work_locations {
+        uuid id PK
+        string code UK 
+        string name
+        string city
+        string country
+        string status 
+    }
+
+    departments {
+        uuid id PK
+        uuid company_id FK
+        string dept_code UK 
+        string dept_name
+        uuid parent_dept_id FK 
+        uuid manager_id FK 
+        string cost_center 
+        string location
+        date effective_date
+        text description
+        string status 
+    }
+
+    positions {
+        uuid id PK
+        uuid department_id FK
+        string position_code UK
+        string position_name
+        uuid default_team_id FK
+        uuid reports_to_position_id FK 
+        string job_level 
+        integer approved_headcount
+        string status 
+        text description
+    }
+
+    teams {
+        uuid id PK
+        uuid department_id FK
+        string team_code UK 
+        string team_name 
+        uuid team_lead_id FK 
+        string location 
+        integer target_headcount
+        string status 
+        date effective_date
+        text description
+    }
+
+    team_members {
+        uuid id PK
+        uuid team_id FK
+        uuid employee_id FK
+        string role_in_team 
+        datetime joined_at
+    }
+
+    reporting_lines {
+        uuid id PK
+        uuid employee_id FK
+        uuid manager_id FK
+        string reporting_type
+        date effective_date
+    }
+
+    employees {
+        uuid id PK
+        string employee_code UK
+        string first_name
+        string last_name
+        string preferred_name
+        string photo_url
+        string work_email UK
+        string personal_email
+        string work_phone
+        string personal_phone
+        string gender
+        string marital_status
+        string nationality
+        date date_of_birth
+        string status
+        date hire_date
+        uuid user_id FK
+    }
+
+    companies ||--o{ departments : "contains"
+    departments ||--o{ departments : "parent_dept (Hierarchy)"
+    departments ||--o{ positions : "defines"
+    departments ||--o{ teams : "contains"
+    positions ||--o{ positions : "reports_to (Hierarchy)"
+    positions }o--|| teams : "default_team"
+    teams ||--o{ team_members : "includes"
+    employees ||--o{ team_members : "member_of"
+    departments }o--|| employees : "managed_by"
+    teams }o--|| employees : "led_by"
+    work_locations ||--o{ departments : "located_at"
+    reporting_lines }o--|| employees : "employee"
+    reporting_lines }o--|| employees : "manager"
+```
+
+---
+
+### Group 3: Employee Directory & Add Employee Wizard (Directory & Onboarding Wizard)
+*Corresponding screens:* `Pop-up_ add employee modal` (Step 1), `Pop-up_ Employment details` (Step 2), `Pop-up_ Compensation & Access` (Step 3), `Employee Directory - tab directory`, `Employee directory - tab status`, `Export Employee Data`, `04. HR Dashboard`, `People Management Overview`.
+
+```mermaid
+erDiagram
+    employees {
+        uuid id PK
+        string employee_code UK
+        string first_name 
+        string last_name 
+        string preferred_name
+        string photo_url
+        string work_email UK
+        string personal_email
+        string work_phone
+        string personal_phone
+        string gender
+        string marital_status
+        string nationality
+        date date_of_birth
+        string status
+        date hire_date
+        uuid user_id FK
+    }
+
+    addresses {
+        uuid id PK
+        uuid employee_id FK
+        string address_type 
+        string street_address
+        string city
+        string country
+    }
+
+    emergency_contacts {
+        uuid id PK
+        uuid employee_id FK
+        string full_name
+        string relationship
+        string primary_phone
+        string secondary_phone
+        string email
+        string preferred_contact_method
+        string address
+        text notes
+    }
+
+    employment_records {
+        uuid id PK
+        uuid employee_id FK
+        uuid department_id FK
+        uuid position_id FK
+        uuid team_id FK
+        uuid manager_id FK
+        uuid work_location_id FK
+        string employment_type 
+        string worker_type 
+        string job_level 
+        string work_mode 
+        integer weekly_hours
+        string time_zone
+        string pay_frequency
+        string currency
+        decimal salary_amount
+    }
+
+    export_logs {
+        uuid id PK
+        uuid user_id FK
+        string export_format
+        jsonb selected_fields
+        datetime created_at
+    }
+
+    employees ||--o{ addresses : "lives_at"
+    employees ||--o{ emergency_contacts : "has"
+    employees ||--o{ employment_records : "current_and_past"
+    export_logs }o--|| employees : "exported_by"
+```
+
+---
+
+### Group 4: Employee Profile & Career History
+*Corresponding screens:* `Employee Profile - Updated Overview`, `Employee Profile - Employment Tab`, `Employee Directory - tab history`, `Employee Profile - History Tab`, `Employee Profile - History Tab-1`.
+
+```mermaid
+erDiagram
+    employees {
+        uuid id PK
+        string employee_code UK
+        string first_name
+        string last_name
+        string preferred_name
+        string photo_url
+        string work_email UK
+        string personal_email
+        string work_phone
+        string personal_phone
+        string gender
+        string marital_status
+        string nationality
+        date date_of_birth
+        string status
+        date hire_date
+        uuid user_id FK
+    }
+
+    employment_histories {
+        uuid id PK
+        uuid employee_id FK
+        uuid request_id FK
+        string category 
+        string event_type
+        string title
+        text description
+        jsonb old_values
+        jsonb new_values
+        date effective_date
+        uuid performed_by_user_id FK
+        datetime created_at
+    }
+
+    salary_histories {
+        uuid id PK
+        uuid employee_id FK
+        decimal old_salary
+        decimal new_salary
+        string change_reason
+        date effective_date
+        uuid approved_by_user_id FK
+    }
+
+    employees ||--o{ employment_histories : "logs"
+    employees ||--o{ salary_histories : "tracks"
+```
+
+---
+
+### Group 5: Employment Contracts Management
+*Corresponding screens:* `Employee directory - tab contract`, `Add New Contract Modal`, *Current Contract* section in `Employee Profile - Overview`.
+
+```mermaid
+erDiagram
+    employees {
+        uuid id PK
+        string employee_code UK
+        string first_name
+        string last_name
+        string preferred_name
+        string photo_url
+        string work_email UK
+        string personal_email
+        string work_phone
+        string personal_phone
+        string gender
+        string marital_status
+        string nationality
+        date date_of_birth
+        string status
+        date hire_date
+        uuid user_id FK
+    }
+
+    contract_types {
+        uuid id PK
+        string code UK
+        string name
+    }
+
+    contract_templates {
+        uuid id PK
+        string template_name
+        string template_type 
+        string file_url
+        boolean is_active
+    }
+
+    contracts {
+        uuid id PK
+        uuid employee_id FK
+        string contract_number UK
+        uuid contract_type_id FK
+        uuid template_id FK
+        string document_title
+        date effective_date
+        date expiry_date
+        string status
+        decimal base_salary
+        string document_url
+    }
+
+    contract_allowances {
+        uuid id PK
+        uuid contract_id FK
+        string allowance_name
+        decimal amount
+    }
+
+    contract_types ||--o{ contracts : "defines"
+    contract_templates ||--o{ contracts : "used_by"
+    contracts ||--o{ contract_allowances : "includes"
+    employees ||--o{ contracts : "signs"
+```
+
+---
+
+### Group 6: Education, Certifications & Document Vault
+*Corresponding screens:* `Employee Profile - Documents Tab`, `Employee Profile - Education & Certifications`.
+
+```mermaid
+erDiagram
+    employees {
+        uuid id PK
+        string employee_code UK
+        string first_name
+        string last_name
+        string preferred_name
+        string photo_url
+        string work_email UK
+        string personal_email
+        string work_phone
+        string personal_phone
+        string gender
+        string marital_status
+        string nationality
+        date date_of_birth
+        string status
+        date hire_date
+        uuid user_id FK
+    }
+
+    educations {
+        uuid id PK
+        uuid employee_id FK
+        string degree_type
+        string major
+        string institution_name
+        string location
+        string start_year
+        string end_year
+        string status
+    }
+
+    certifications {
+        uuid id PK
+        uuid employee_id FK
+        string certification_name
+        string credential_id
+        string issuing_organization
+        date issue_date
+        date expiry_date
+        string status
+    }
+
+    training_records {
+        uuid id PK
+        uuid employee_id FK
+        string program_name
+        string provider
+        date start_date
+        integer duration_hours
+        string result
+        string status
+    }
+
+    document_types {
+        uuid id PK
+        string code UK
+        string name
+        boolean is_required
+    }
+
+    employee_documents {
+        uuid id PK
+        uuid employee_id FK
+        uuid document_type_id FK
+        string category 
+        string document_name 
+        string file_url
+        datetime uploaded_at
+        uuid uploaded_by_user_id FK
+        date expiration_date
+        string status
+        datetime verified_at
+    }
+
+    employees ||--o{ educations : "has"
+    employees ||--o{ certifications : "holds"
+    employees ||--o{ training_records : "attends"
+    employees ||--o{ employee_documents : "uploads"
+    document_types ||--o{ employee_documents : "classifies"
+```
+
+---
+
+### Group 7: Employee Requests & Approval Workflow Tracking
+*Corresponding screens:* `RequestManagement.html.html.../Frame.png`, `TrackingRequest.html.html.../Frame.png`, `Frame.png`.
+
+```mermaid
+erDiagram
+    employees {
+        uuid id PK
+        string employee_code UK
+        string first_name
+        string last_name
+        string preferred_name
+        string photo_url
+        string work_email UK
+        string personal_email
+        string work_phone
+        string personal_phone
+        string gender
+        string marital_status
+        string nationality
+        date date_of_birth
+        string status
+        date hire_date
+        uuid user_id FK
+    }
+
+    request_types {
+        uuid id PK
+        string code UK
+        string name
+        integer default_sla_hours
+    }
+
+    requests {
+        uuid id PK
+        string request_code UK
+        uuid requester_id FK
+        uuid request_type_id FK
+        uuid handover_assignee_id FK
+        string title
+        text reason_notes
+        string contact_phone
+        date start_date
+        date end_date
+        integer calculated_days
+        string priority
+        string current_stage
+        string status
+        datetime sla_deadline_at
+        datetime submitted_at
+    }
+
+    request_attachments {
+        uuid id PK
+        uuid request_id FK
+        string file_name
+        string file_url
+        string file_type
+        datetime uploaded_at
+    }
+
+    approval_steps {
+        uuid id PK
+        uuid request_id FK
+        integer step_number
+        string step_name
+        uuid assigned_approver_id FK
+        string status
+        datetime action_date
+    }
+
+    request_activity_logs {
+        uuid id PK
+        uuid request_id FK
+        uuid actor_id FK
+        string action
+        text comment
+        datetime created_at
+    }
+
+    leave_quotas {
+        uuid id PK
+        uuid employee_id FK
+        string leave_type
+        integer year
+        integer total_days
+        integer used_days
+    }
+
+    request_types ||--o{ requests : "defines"
+    employees ||--o{ requests : "creates"
+    employees ||--o{ requests : "handover_assignee"
+    requests ||--o{ request_attachments : "includes"
+    requests ||--o{ approval_steps : "workflow"
+    requests ||--o{ request_activity_logs : "timeline"
+    employees ||--o{ approval_steps : "assigned_approver"
+    employees ||--o{ request_activity_logs : "actor"
+    employees ||--o{ leave_quotas : "has_quota"
+```
+
+---
+
 ## UI/X Design
 
 https://www.figma.com/design/lVYyY2rxIvDSMv5dHhUPAn/HR-Platform?node-id=0-1&t=s2k7yUaYU5qM7xkB-1
@@ -743,3 +1373,6 @@ These use cases should be implemented after core operational data and workflows 
 ## Employee Goals and Performance Review
 
 ![alt text](docs/assets/swimlands/Employee-Goals-Performance-Review.png)
+
+---
+
