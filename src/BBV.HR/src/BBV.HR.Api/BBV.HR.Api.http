@@ -1,0 +1,6 @@
+@BBV.HR.Api_HostAddress = http://localhost:5072
+
+GET {{BBV.HR.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

@@ -1,0 +1,10 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/BBV.HR.Api/BBV.HR.Api.csproj" />
+    <Project Path="src/BBV.HR.Application/BBV.HR.Application.csproj" />
+    <Project Path="src/BBV.HR.Infrastructure/BBV.HR.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/BBV.HR.Tests/BBV.HR.Tests.csproj" />
+  </Folder>
+</Solution>
