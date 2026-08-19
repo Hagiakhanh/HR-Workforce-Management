@@ -1376,3 +1376,255 @@ These use cases should be implemented after core operational data and workflows 
 
 ---
 
+---
+
+# Entity Relationship Diagram (ERD) - Project Management
+
+This section describes the ERD for the **Project Management** module, derived from 22 UI screens located in `docs/assets/UI-Project-Management`.
+
+> **Nguyên tắc thiết kế:**
+> - **Không lưu** các trường có thể **tính toán** từ dữ liệu khác: `total_hours`, `remaining_budget`, `team_size`, `avg_allocation_%`, `available_capacity_%`, `active_time`, `idle_time`, `total_labor_cost`, `sprint_progress_%`, `weekly_total`, `diff_hours`.
+> - **Không lưu** trạng thái phái sinh: `capacity_status` (Available / Fully Allocated / Over Capacity) — tính real-time từ tổng `allocation_%`.
+> - **Lưu** các giá trị gốc mà người dùng nhập hoặc hệ thống ghi nhận trực tiếp: giờ làm thực tế, tỷ lệ allocation được chỉ định, budget gốc, threshold cảnh báo.
+
+---
+
+## 1. High-Level ERD (Overview)
+
+```mermaid
+erDiagram
+    %% Core
+    employees ||--o{ project_members       : "assigned_to"
+    projects  ||--o{ project_members       : "has"
+    employees ||--o| employees             : "manages (manager_id)"
+
+    %% Time Tracking
+    employees  ||--o{ timesheets           : "submits"
+    timesheets ||--o{ time_entries         : "contains"
+    projects   ||--o{ time_entries         : "logged_against"
+
+    %% Budget
+    projects ||--o{ budget_adjustments     : "adjusted_by"
+
+    %% Productivity Monitoring
+    employees ||--o{ productivity_sessions : "tracked"
+    productivity_sessions ||--o{ productivity_app_logs     : "contains"
+    productivity_sessions ||--o{ productivity_website_logs : "contains"
+    productivity_sessions ||--o{ productivity_screenshots  : "captures"
+```
+
+---
+
+## 2. Detailed ERD by Feature Group
+
+### Group 1: Projects (Quản lý dự án)
+*Screens:* `PM_ Projects Dashboard`, `PM_ Create Project Form`, `PM_ Project Detail View`
+
+```mermaid
+erDiagram
+    projects {
+        uuid        id                      PK
+        string      code                    UK "e.g. PRJ-2024-001"
+        string      name
+        text        description
+        string      status                     "Planning | Active | On Hold | Completed | Cancelled"
+        uuid        manager_id              FK "→ employees.id"
+        date        start_date
+        date        end_date
+        decimal     total_budget               "Tổng ngân sách phân bổ ($)"
+        decimal     labor_budget               "Ngân sách nhân công ($)"
+        integer     budget_warning_threshold   "% cảnh báo, default 85"
+        integer     expected_team_size_fte     "FTE kế hoạch"
+        integer     default_weekly_capacity_h  "Giờ/tuần mặc định, e.g. 40"
+        string      client                     "Internal R&D | tên client"
+        string      priority                   "Low | Medium | High | Critical"
+        string      tech_stack                 "e.g. React, Node.js, Python"
+        datetime    created_at
+        datetime    updated_at
+    }
+
+    employees {
+        uuid   id          PK
+        string first_name
+        string last_name
+        string employee_code
+    }
+
+    projects }o--|| employees : "managed_by"
+```
+
+---
+
+### Group 2: Project Members & Resource Allocation (Thành viên & phân bổ nguồn lực)
+*Screens:* `PM_ Project Members List`, `PM_ Add Project Member Drawer`, `PM_ Resource Allocation`, `PM_ Project Capacity View`, `Employee_ My Project`, `HR_ Resource Overview`, `HR_ Capacity Overview`
+
+```mermaid
+erDiagram
+    project_members {
+        uuid    id              PK
+        uuid    project_id      FK "→ projects.id"
+        uuid    employee_id     FK "→ employees.id"
+        string  project_role       "e.g. Backend Developer, UX Designer"
+        integer allocation_pct     "% phân bổ cho dự án này (do PM nhập)"
+        date    start_date
+        date    end_date           "NULL = không xác định"
+        datetime joined_at
+        datetime updated_at
+    }
+
+    %% Ghi chú:
+    %% - overall_allocation_%  = SUM(allocation_pct) across all active assignments → tính toán
+    %% - available_capacity_%  = 100 - overall_allocation_%  → tính toán
+    %% - capacity_status       = Available / Fully Allocated / Over Capacity → tính toán
+    %% - weekly_hours          = allocation_pct * employee.default_weekly_hours → tính toán
+
+    projects  ||--o{ project_members : "has"
+    employees ||--o{ project_members : "assigned_in"
+```
+
+---
+
+### Group 3: Time Tracking & Timesheets (Chấm công)
+*Screens:* `PM_ Time Tracking`, `PM_ Timesheet Review`, `Employee_ My Time`
+
+```mermaid
+erDiagram
+    timesheets {
+        uuid     id              PK
+        uuid     employee_id     FK "→ employees.id"
+        date     week_start_date    "Luôn là thứ Hai"
+        string   status             "Draft | Submitted | Pending Approval | Approved | Rejected"
+        datetime submitted_at
+        uuid     reviewed_by     FK "→ employees.id (PM/HR)"
+        datetime reviewed_at
+        text     reviewer_notes
+    }
+
+    time_entries {
+        uuid     id              PK
+        uuid     timesheet_id    FK "→ timesheets.id"
+        uuid     project_id      FK "→ projects.id"
+        date     work_date
+        string   time_type          "Regular | Training | Overtime"
+        time     start_time
+        time     end_time
+        text     notes
+    }
+
+    %% Ghi chú:
+    %% - hours_logged   = EXTRACT(EPOCH FROM end_time - start_time)/3600  → tính toán
+    %% - total_regular  = SUM(hours) WHERE time_type = 'Regular'          → tính toán
+    %% - total_training = SUM(hours) WHERE time_type = 'Training'         → tính toán
+    %% - total_overtime = SUM(hours) WHERE time_type = 'Overtime'         → tính toán
+    %% - weekly_total   = SUM(all hours in timesheet)                     → tính toán
+    %% - diff_hours     = weekly_total - expected_hours                   → tính toán
+
+    employees  ||--o{ timesheets   : "submits"
+    timesheets ||--o{ time_entries : "contains"
+    projects   ||--o{ time_entries : "logged_against"
+```
+
+---
+
+### Group 4: Budget (Ngân sách dự án)
+*Screens:* `PM_ Project Budget`
+
+```mermaid
+erDiagram
+    budget_adjustments {
+        uuid     id              PK
+        uuid     project_id      FK "→ projects.id"
+        string   adjustment_type    "Increase | Decrease | Reallocation"
+        decimal  amount             "Số tiền thay đổi ($)"
+        string   budget_category    "Total | Labor"
+        text     reason
+        uuid     approved_by     FK "→ employees.id"
+        datetime created_at
+    }
+
+    %% Ghi chú:
+    %% - current_total_budget = projects.total_budget + SUM(adjustments for Total) → tính toán
+    %% - budget_consumed      = SUM(hourly_rate * hours) from time_entries          → tính toán
+    %% - budget_remaining     = current_total_budget - budget_consumed              → tính toán
+    %% - budget_used_%        = budget_consumed / current_total_budget * 100        → tính toán
+    %% - labor_cost_per_entry = employee.hourly_rate * hours_logged                 → tính toán
+
+    projects ||--o{ budget_adjustments : "adjusted_by"
+```
+
+> **Lưu ý:** `hourly_rate` của nhân viên được lấy từ bảng lương (module Compensation), không lưu lại trong Project Management.
+
+---
+
+### Group 5: Productivity Monitoring (Theo dõi năng suất)
+*Screens:* `PM_ Team Productivity`, `PM_ Employee Productivity Detail`, `Employee_ My Productivity`
+
+```mermaid
+erDiagram
+    productivity_sessions {
+        uuid     id              PK
+        uuid     employee_id     FK "→ employees.id"
+        uuid     project_id      FK "→ projects.id (nullable)"
+        date     session_date
+        time     session_start
+        time     session_end
+        integer  activity_pct       "% hoạt động thực tế (keyboard/mouse)"
+        string   session_type       "Active | Idle | Offline"
+        datetime created_at
+    }
+
+    productivity_app_logs {
+        uuid     id              PK
+        uuid     session_id      FK "→ productivity_sessions.id"
+        string   app_name           "e.g. VS Code, MS Teams"
+        integer  duration_mins
+        string   category           "Development | Communication | Design | Other"
+    }
+
+    productivity_website_logs {
+        uuid     id              PK
+        uuid     session_id      FK "→ productivity_sessions.id"
+        string   url
+        integer  duration_mins
+        string   category           "Development | Social | Other"
+    }
+
+    productivity_screenshots {
+        uuid     id              PK
+        uuid     session_id      FK "→ productivity_sessions.id"
+        datetime captured_at
+        string   file_url           "Path đến screenshot"
+        integer  activity_pct       "Activity % tại thời điểm chụp"
+    }
+
+    %% Ghi chú:
+    %% - tracked_hours   = SUM(session_end - session_start) per day → tính toán
+    %% - active_time     = SUM(duration WHERE session_type='Active') → tính toán
+    %% - idle_time       = SUM(duration WHERE session_type='Idle')   → tính toán
+    %% - avg_activity_%  = AVG(activity_pct) across sessions         → tính toán
+    %% - data_points     = COUNT(app_logs) + COUNT(web_logs) + COUNT(screenshots) → tính toán
+
+    employees             ||--o{ productivity_sessions      : "tracked"
+    productivity_sessions ||--o{ productivity_app_logs      : "logs_app"
+    productivity_sessions ||--o{ productivity_website_logs  : "logs_website"
+    productivity_sessions ||--o{ productivity_screenshots   : "captures"
+```
+
+---
+
+## 3. Tổng hợp - Tất cả bảng & quan hệ
+
+| Bảng | Mô tả | Các trường KHÔNG lưu (tính toán) |
+|---|---|---|
+| `projects` | Thông tin dự án | `team_size`, `avg_allocation_%`, `budget_remaining`, `budget_used_%` |
+| `project_members` | Phân bổ thành viên vào dự án | `overall_allocation_%`, `available_capacity_%`, `capacity_status`, `weekly_hours` |
+| `timesheets` | Bảng chấm công tuần của nhân viên | `total_regular_h`, `total_training_h`, `total_overtime_h`, `weekly_total`, `diff_hours` |
+| `time_entries` | Từng dòng giờ làm trong ngày | `hours_logged` (= end_time - start_time) |
+| `budget_adjustments` | Điều chỉnh ngân sách dự án | `current_budget`, `budget_consumed`, `budget_used_%` |
+| `productivity_sessions` | Phiên làm việc của nhân viên | `tracked_hours`, `active_time`, `idle_time` |
+| `productivity_app_logs` | Log ứng dụng trong phiên | — |
+| `productivity_website_logs` | Log website trong phiên | — |
+| `productivity_screenshots` | Screenshot theo dõi hoạt động | — |
+
+> **Jira Integration** (`jira_integrations`, `jira_sprint_snapshots`) được dự kiến cho **v2** — sau khi các tính năng core ổn định.
+
