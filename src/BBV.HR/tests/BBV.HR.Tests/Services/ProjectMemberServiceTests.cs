@@ -153,4 +153,151 @@ public class ProjectMemberServiceTests
         _memberRepoMock.Verify(r => r.UpdateAsync(It.Is<ProjectMember>(m => m.AllocationPct == 80)), Times.Once);
         _unitOfWorkMock.Verify(u => u.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Once);
     }
+
+    [Fact]
+    public async Task GetProjectMemberByIdAsync_WhenMemberExists_ShouldReturnDto()
+    {
+        // Arrange
+        var projectId = Guid.NewGuid();
+        var memberId = Guid.NewGuid();
+        var member = new ProjectMember { Id = memberId, ProjectId = projectId, ProjectRole = "Tech Lead" };
+
+        _memberRepoMock.Setup(r => r.GetByIdAsync(projectId, memberId)).ReturnsAsync(member);
+
+        // Act
+        var result = await _memberService.GetProjectMemberByIdAsync(projectId, memberId);
+
+        // Assert
+        result.Should().NotBeNull();
+        result!.Id.Should().Be(memberId);
+        result.ProjectRole.Should().Be("Tech Lead");
+    }
+
+    [Fact]
+    public async Task GetProjectMemberByIdAsync_WhenMemberDoesNotExist_ShouldReturnNull()
+    {
+        // Arrange
+        var projectId = Guid.NewGuid();
+        var memberId = Guid.NewGuid();
+
+        _memberRepoMock.Setup(r => r.GetByIdAsync(projectId, memberId)).ReturnsAsync((ProjectMember?)null);
+
+        // Act
+        var result = await _memberService.GetProjectMemberByIdAsync(projectId, memberId);
+
+        // Assert
+        result.Should().BeNull();
+    }
+
+    [Fact]
+    public async Task AddProjectMemberAsync_WhenEmployeeNotFound_ShouldThrowKeyNotFoundException()
+    {
+        // Arrange
+        var projectId = Guid.NewGuid();
+        var employeeId = Guid.NewGuid();
+        var addDto = new AddProjectMemberDto { EmployeeId = employeeId, ProjectRole = "Developer", AllocationPct = 100 };
+
+        _projectRepoMock.Setup(r => r.ExistsAsync(projectId)).ReturnsAsync(true);
+        _employeeRepoMock.Setup(r => r.ExistsAsync(employeeId)).ReturnsAsync(false);
+
+        // Act
+        Func<Task> act = async () => await _memberService.AddProjectMemberAsync(projectId, addDto);
+
+        // Assert
+        await act.Should().ThrowAsync<KeyNotFoundException>()
+            .WithMessage("*Employee with ID*not found*");
+    }
+
+    [Fact]
+    public async Task UpdateProjectMemberAsync_WhenMemberExists_ShouldUpdateFields()
+    {
+        // Arrange
+        var projectId = Guid.NewGuid();
+        var memberId = Guid.NewGuid();
+        var existingMember = new ProjectMember { Id = memberId, ProjectId = projectId, ProjectRole = "Dev" };
+
+        _memberRepoMock.Setup(r => r.GetByIdAsync(projectId, memberId)).ReturnsAsync(existingMember);
+        _memberRepoMock.Setup(r => r.UpdateAsync(It.IsAny<ProjectMember>())).Returns(Task.CompletedTask);
+
+        var updateDto = new UpdateProjectMemberDto { ProjectRole = "Senior Dev", AllocationPct = 100 };
+
+        // Act
+        var result = await _memberService.UpdateProjectMemberAsync(projectId, memberId, updateDto);
+
+        // Assert
+        _memberRepoMock.Verify(r => r.UpdateAsync(It.Is<ProjectMember>(m => m.ProjectRole == "Senior Dev")), Times.Once);
+        _unitOfWorkMock.Verify(u => u.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Once);
+    }
+
+    [Fact]
+    public async Task UpdateProjectMemberAsync_WhenMemberDoesNotExist_ShouldReturnNull()
+    {
+        // Arrange
+        var projectId = Guid.NewGuid();
+        var memberId = Guid.NewGuid();
+        var updateDto = new UpdateProjectMemberDto { ProjectRole = "Senior Dev" };
+
+        _memberRepoMock.Setup(r => r.GetByIdAsync(projectId, memberId)).ReturnsAsync((ProjectMember?)null);
+
+        // Act
+        var result = await _memberService.UpdateProjectMemberAsync(projectId, memberId, updateDto);
+
+        // Assert
+        result.Should().BeNull();
+    }
+
+    [Fact]
+    public async Task RemoveProjectMemberAsync_WhenMemberExists_ShouldReturnTrue()
+    {
+        // Arrange
+        var projectId = Guid.NewGuid();
+        var memberId = Guid.NewGuid();
+        var existingMember = new ProjectMember { Id = memberId, ProjectId = projectId };
+
+        _memberRepoMock.Setup(r => r.GetByIdAsync(projectId, memberId)).ReturnsAsync(existingMember);
+        _memberRepoMock.Setup(r => r.DeleteAsync(existingMember)).Returns(Task.CompletedTask);
+
+        // Act
+        var result = await _memberService.RemoveProjectMemberAsync(projectId, memberId);
+
+        // Assert
+        result.Should().BeTrue();
+        _memberRepoMock.Verify(r => r.DeleteAsync(existingMember), Times.Once);
+        _unitOfWorkMock.Verify(u => u.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Once);
+    }
+
+    [Fact]
+    public async Task RemoveProjectMemberAsync_WhenMemberDoesNotExist_ShouldReturnFalse()
+    {
+        // Arrange
+        var projectId = Guid.NewGuid();
+        var memberId = Guid.NewGuid();
+
+        _memberRepoMock.Setup(r => r.GetByIdAsync(projectId, memberId)).ReturnsAsync((ProjectMember?)null);
+
+        // Act
+        var result = await _memberService.RemoveProjectMemberAsync(projectId, memberId);
+
+        // Assert
+        result.Should().BeFalse();
+        _memberRepoMock.Verify(r => r.DeleteAsync(It.IsAny<ProjectMember>()), Times.Never);
+    }
+
+    [Fact]
+    public async Task UpdateMemberAllocationAsync_WhenMemberDoesNotExist_ShouldReturnNull()
+    {
+        // Arrange
+        var projectId = Guid.NewGuid();
+        var memberId = Guid.NewGuid();
+        var dto = new UpdateMemberAllocationDto { AllocationPct = 50 };
+
+        _memberRepoMock.Setup(r => r.GetByIdAsync(projectId, memberId)).ReturnsAsync((ProjectMember?)null);
+
+        // Act
+        var result = await _memberService.UpdateMemberAllocationAsync(projectId, memberId, dto);
+
+        // Assert
+        result.Should().BeNull();
+    }
 }
+

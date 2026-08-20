@@ -206,4 +206,53 @@ public class ProjectServiceTests
         _projectRepoMock.Verify(r => r.DeleteAsync(existingProject), Times.Once);
         _unitOfWorkMock.Verify(u => u.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Once);
     }
+
+    [Fact]
+    public async Task UpdateProjectAsync_WhenProjectNotFound_ShouldReturnNull()
+    {
+        // Arrange
+        var projectId = Guid.NewGuid();
+        var updateDto = new UpdateProjectDto { Name = "Updated Name" };
+        _projectRepoMock.Setup(r => r.GetByIdAsync(projectId)).ReturnsAsync((Project?)null);
+
+        // Act
+        var result = await _projectService.UpdateProjectAsync(projectId, updateDto);
+
+        // Assert
+        result.Should().BeNull();
+    }
+
+    [Fact]
+    public async Task UpdateProjectAsync_WhenDuplicateCode_ShouldThrowInvalidOperationException()
+    {
+        // Arrange
+        var projectId = Guid.NewGuid();
+        var existing = new Project { Id = projectId, Code = "OLD-CODE", Name = "Name" };
+        var updateDto = new UpdateProjectDto { Code = "EXISTING-CODE" };
+
+        _projectRepoMock.Setup(r => r.GetByIdAsync(projectId)).ReturnsAsync(existing);
+        _projectRepoMock.Setup(r => r.ExistsCodeAsync("EXISTING-CODE", projectId)).ReturnsAsync(true);
+
+        // Act
+        Func<Task> act = async () => await _projectService.UpdateProjectAsync(projectId, updateDto);
+
+        // Assert
+        await act.Should().ThrowAsync<InvalidOperationException>()
+            .WithMessage("*already exists*");
+    }
+
+    [Fact]
+    public async Task DeleteProjectAsync_WhenProjectNotFound_ShouldReturnFalse()
+    {
+        // Arrange
+        var projectId = Guid.NewGuid();
+        _projectRepoMock.Setup(r => r.GetByIdAsync(projectId)).ReturnsAsync((Project?)null);
+
+        // Act
+        var result = await _projectService.DeleteProjectAsync(projectId);
+
+        // Assert
+        result.Should().BeFalse();
+    }
 }
+
