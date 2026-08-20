@@ -125,4 +125,52 @@ public class ProjectEffortServiceTests
         memberEfforts.First().TotalLoggedHours.Should().Be(8.0);
         memberEfforts.First().TimeEntriesCount.Should().Be(2);
     }
+
+    [Fact]
+    public async Task GetProjectMemberEffortAsync_WhenProjectNotFound_ShouldReturnEmpty()
+    {
+        // Arrange
+        var projectId = Guid.NewGuid();
+        _projectRepoMock.Setup(r => r.ExistsAsync(projectId)).ReturnsAsync(false);
+
+        // Act
+        var result = await _effortService.GetProjectMemberEffortAsync(projectId);
+
+        // Assert
+        result.Should().BeEmpty();
+    }
+
+    [Fact]
+    public async Task GetProjectTimeEntriesAsync_ShouldReturnMappedTimeEntries()
+    {
+        // Arrange
+        var projectId = Guid.NewGuid();
+        var emp = new Employee { Id = Guid.NewGuid(), FirstName = "John", LastName = "Doe" };
+        var timeEntries = new List<TimeEntry>
+        {
+            new TimeEntry
+            {
+                Id = Guid.NewGuid(),
+                ProjectId = projectId,
+                WorkDate = new DateOnly(2026, 8, 10),
+                TimeType = "Development",
+                Timesheet = new Timesheet { EmployeeId = emp.Id, Employee = emp },
+                StartTime = new TimeOnly(8, 0),
+                EndTime = new TimeOnly(17, 0)
+            }
+        };
+
+        _timeEntryRepoMock.Setup(r => r.GetByProjectIdAsync(projectId)).ReturnsAsync(timeEntries);
+
+        // Act
+        var result = (await _effortService.GetProjectTimeEntriesAsync(projectId)).ToList();
+
+        // Assert
+        result.Should().NotBeNull();
+        result.Should().HaveCount(1);
+        result.First().EmployeeName.Should().Be("John Doe");
+        result.First().TimeType.Should().Be("Development");
+        result.First().LoggedHours.Should().Be(9.0);
+    }
 }
+
