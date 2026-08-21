@@ -1,8 +1,10 @@
 using BBV.HR.Application.DTOs.Capability;
+using BBV.HR.Application.DTOs.EmployeeCapability;
 using BBV.HR.Application.DTOs.ProjectMembers;
 using BBV.HR.Application.DTOs.Projects;
 using BBV.HR.Application.Validators;
 using BBV.HR.Application.Validators.Capabilities;
+using BBV.HR.Application.Validators.EmployeeCapabilities;
 using FluentAssertions;
 using FluentValidation.TestHelper;
 
@@ -12,6 +14,8 @@ public class ValidatorTests
 {
     private readonly CreateCapabilityDtoValidator _createCapabilityValidator = new();
     private readonly UpdateCapabilityDtoValidator _updateCapabilityValidator = new();
+    private readonly AddEmployeeCapabilityDtoValidator _addEmployeeCapabilityValidator = new();
+    private readonly UpdateEmployeeCapabilityDtoValidator _updateEmployeeCapabilityValidator = new();
     private readonly CreateProjectDtoValidator _createProjectValidator = new();
     private readonly UpdateProjectDtoValidator _updateProjectValidator = new();
     private readonly AddProjectMemberDtoValidator _addMemberValidator = new();
@@ -136,6 +140,34 @@ public class ValidatorTests
     {
         var dto = new UpdateMemberAllocationDto { AllocationPct = 50 };
         var result = _updateAllocationValidator.TestValidate(dto);
+        result.ShouldNotHaveAnyValidationErrors();
+    }
+
+    #endregion
+
+    #region Employee Capability Validators
+
+    [Fact]
+    public void AddEmployeeCapabilityDtoValidator_WhenCapabilityIdEmpty_ShouldHaveValidationError()
+    {
+        var dto = new AddEmployeeCapabilityDto { CapabilityId = Guid.Empty };
+        var result = _addEmployeeCapabilityValidator.TestValidate(dto);
+        result.ShouldHaveValidationErrorFor(x => x.CapabilityId);
+    }
+
+    [Fact]
+    public void AddEmployeeCapabilityDtoValidator_WhenProficiencyLevelOutOfRange_ShouldHaveValidationError()
+    {
+        var dto = new AddEmployeeCapabilityDto { CapabilityId = Guid.NewGuid(), ProficiencyLevel = 6 };
+        var result = _addEmployeeCapabilityValidator.TestValidate(dto);
+        result.ShouldHaveValidationErrorFor(x => x.ProficiencyLevel);
+    }
+
+    [Fact]
+    public void UpdateEmployeeCapabilityDtoValidator_WhenValid_ShouldNotHaveValidationError()
+    {
+        var dto = new UpdateEmployeeCapabilityDto { ProficiencyLevel = 4, YearsExperience = 3.5m };
+        var result = _updateEmployeeCapabilityValidator.TestValidate(dto);
         result.ShouldNotHaveAnyValidationErrors();
     }
 
