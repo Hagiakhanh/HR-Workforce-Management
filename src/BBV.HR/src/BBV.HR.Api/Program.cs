@@ -10,6 +10,8 @@ public class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
+        builder.AddServiceDefaults();
+
         // Add Controllers & ProblemDetails / Exception Handling
         builder.Services.AddControllers();
         builder.Services.AddProblemDetailsAndExceptionHandler();
@@ -47,6 +49,7 @@ public class Program
         app.UseAuthorization();
 
         app.MapControllers();
+        app.MapDefaultEndpoints();
         app.MapGet("/", () => Results.Redirect("/swagger")).ExcludeFromDescription();
 
         await app.RunAsync();
