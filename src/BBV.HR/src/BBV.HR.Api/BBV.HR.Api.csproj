@@ -18,6 +18,7 @@
   <ItemGroup>
     <ProjectReference Include="..\BBV.HR.Application\BBV.HR.Application.csproj" />
     <ProjectReference Include="..\BBV.HR.Infrastructure\BBV.HR.Infrastructure.csproj" />
+    <ProjectReference Include="..\BBV.HR.ServiceDefaults\BBV.HR.ServiceDefaults.csproj" />
   </ItemGroup>
 
 </Project>
