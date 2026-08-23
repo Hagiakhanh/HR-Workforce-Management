@@ -1,4 +1,5 @@
 using System.Security.Claims;
+using BBV.HR.Api.Models;
 using BBV.HR.Application.Interfaces.Services;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Authentication;
@@ -95,7 +96,9 @@ public class AuthorizationController : ControllerBase
             return Forbid(properties, OpenIddictServerAspNetCoreDefaults.AuthenticationScheme);
         }
 
-        var principal = CreatePrincipalForEmployee(employee, request.GetScopes());
+        var claims = _authService.GetClaimsForEmployee(employee);
+        var principal = CreatePrincipalForClaims(claims, request.GetScopes());
+
         return SignIn(principal, OpenIddictServerAspNetCoreDefaults.AuthenticationScheme);
     }
 
@@ -124,7 +127,9 @@ public class AuthorizationController : ControllerBase
                 }), OpenIddictServerAspNetCoreDefaults.AuthenticationScheme);
             }
 
-            var principal = CreatePrincipalForEmployee(employee, result.Principal.GetScopes());
+            var claims = _authService.GetClaimsForEmployee(employee);
+            var principal = CreatePrincipalForClaims(claims, result.Principal.GetScopes());
+
             return SignIn(principal, OpenIddictServerAspNetCoreDefaults.AuthenticationScheme);
         }
 
@@ -151,16 +156,8 @@ public class AuthorizationController : ControllerBase
                 return NotFound();
             }
 
-            return Ok(new Dictionary<string, object>
-            {
-                [Claims.Subject] = employee.Id.ToString(),
-                [Claims.Email] = employee.Email,
-                [Claims.Name] = $"{employee.FirstName} {employee.LastName}".Trim(),
-                [Claims.GivenName] = employee.FirstName,
-                [Claims.FamilyName] = employee.LastName,
-                [Claims.Role] = employee.Role,
-                ["employee_code"] = employee.EmployeeCode
-            });
+            var claims = _authService.GetClaimsForEmployee(employee);
+            return Ok(claims.ToDictionary(c => c.Type, c => (object)c.Value));
         }
 
         return Ok(new Dictionary<string, object>
@@ -170,20 +167,13 @@ public class AuthorizationController : ControllerBase
         });
     }
 
-    private static ClaimsPrincipal CreatePrincipalForEmployee(BBV.HR.Application.Entities.Employee employee, IEnumerable<string> scopes)
+    private static ClaimsPrincipal CreatePrincipalForClaims(IEnumerable<Claim> claims, IEnumerable<string> scopes)
     {
         var identity = new ClaimsIdentity(
+            claims,
             authenticationType: OpenIddictServerAspNetCoreDefaults.AuthenticationScheme,
             nameType: Claims.Name,
             roleType: Claims.Role);
-
-        identity.SetClaim(Claims.Subject, employee.Id.ToString());
-        identity.SetClaim(Claims.Email, employee.Email);
-        identity.SetClaim(Claims.Name, $"{employee.FirstName} {employee.LastName}".Trim());
-        identity.SetClaim(Claims.GivenName, employee.FirstName);
-        identity.SetClaim(Claims.FamilyName, employee.LastName);
-        identity.SetClaim(Claims.Role, employee.Role);
-        identity.SetClaim("employee_code", employee.EmployeeCode);
 
         // Set destinations: which claims are included in access token vs id token
         identity.SetDestinations(claim => claim.Type switch
@@ -199,31 +189,4 @@ public class AuthorizationController : ControllerBase
 
         return principal;
     }
-}
-
-public class OpenIddictTokenRequestModel
-{
-    [FromForm(Name = "grant_type")]
-    public string GrantType { get; set; } = "password";
-
-    [FromForm(Name = "username")]
-    public string? Username { get; set; } = "admin@bbv.vn";
-
-    [FromForm(Name = "password")]
-    public string? Password { get; set; } = "Password123!";
-
-    [FromForm(Name = "scope")]
-    public string? Scope { get; set; } = "openid profile email roles api";
-
-    [FromForm(Name = "client_id")]
-    public string? ClientId { get; set; } = "bbv-hr-spa";
-
-    [FromForm(Name = "client_secret")]
-    public string? ClientSecret { get; set; }
-
-    [FromForm(Name = "refresh_token")]
-    public string? RefreshToken { get; set; }
-
-    [FromForm(Name = "code")]
-    public string? Code { get; set; }
 }

@@ -1,6 +1,8 @@
+using System.Security.Claims;
 using BBV.HR.Application.Entities;
 using BBV.HR.Application.Interfaces.Repositories;
 using BBV.HR.Application.Interfaces.Services;
+using OpenIddict.Abstractions;
 
 namespace BBV.HR.Infrastructure.Auth;
 
@@ -48,6 +50,24 @@ public class AuthService : IAuthService
         }
 
         return await _employeeRepository.GetByEmailAsync(email.Trim());
+    }
+
+    public IEnumerable<Claim> GetClaimsForEmployee(Employee employee)
+    {
+        ArgumentNullException.ThrowIfNull(employee);
+
+        var claims = new List<Claim>
+        {
+            new(OpenIddictConstants.Claims.Subject, employee.Id.ToString()),
+            new(OpenIddictConstants.Claims.Email, employee.Email ?? string.Empty),
+            new(OpenIddictConstants.Claims.Name, $"{employee.FirstName} {employee.LastName}".Trim()),
+            new(OpenIddictConstants.Claims.GivenName, employee.FirstName ?? string.Empty),
+            new(OpenIddictConstants.Claims.FamilyName, employee.LastName ?? string.Empty),
+            new(OpenIddictConstants.Claims.Role, employee.Role ?? string.Empty),
+            new("employee_code", employee.EmployeeCode ?? string.Empty)
+        };
+
+        return claims;
     }
 
     public string HashPassword(string password)

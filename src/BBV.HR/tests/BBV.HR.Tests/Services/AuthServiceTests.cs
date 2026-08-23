@@ -130,4 +130,31 @@ public class AuthServiceTests
         result!.Id.Should().Be(id);
         _employeeRepositoryMock.Verify(r => r.GetByIdAsync(id), Times.Once);
     }
+
+    [Fact]
+    public void GetClaimsForEmployee_ShouldReturnAllRequiredClaims()
+    {
+        // Arrange
+        var employee = new Employee
+        {
+            Id = Guid.Parse("11111111-1111-1111-1111-111111111111"),
+            Email = "admin@bbv.vn",
+            FirstName = "An",
+            LastName = "Nguyen",
+            Role = Roles.Admin,
+            EmployeeCode = "EMP-001"
+        };
+
+        // Act
+        var claims = _authService.GetClaimsForEmployee(employee).ToList();
+
+        // Assert
+        claims.Should().Contain(c => c.Type == "sub" && c.Value == "11111111-1111-1111-1111-111111111111");
+        claims.Should().Contain(c => c.Type == "email" && c.Value == "admin@bbv.vn");
+        claims.Should().Contain(c => c.Type == "name" && c.Value == "An Nguyen");
+        claims.Should().Contain(c => c.Type == "given_name" && c.Value == "An");
+        claims.Should().Contain(c => c.Type == "family_name" && c.Value == "Nguyen");
+        claims.Should().Contain(c => c.Type == "role" && c.Value == Roles.Admin);
+        claims.Should().Contain(c => c.Type == "employee_code" && c.Value == "EMP-001");
+    }
 }
