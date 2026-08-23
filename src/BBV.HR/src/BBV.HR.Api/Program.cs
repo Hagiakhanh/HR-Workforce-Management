@@ -23,7 +23,26 @@ public class Program
         builder.Services.AddApplicationServices();
         builder.Services.AddInfrastructureServices(builder.Configuration);
 
-        builder.Services.AddAuthorization();
+        // Configure Authentication with OpenIddict Validation
+        builder.Services.AddAuthentication(options =>
+        {
+            options.DefaultAuthenticateScheme = OpenIddict.Validation.AspNetCore.OpenIddictValidationAspNetCoreDefaults.AuthenticationScheme;
+            options.DefaultChallengeScheme = OpenIddict.Validation.AspNetCore.OpenIddictValidationAspNetCoreDefaults.AuthenticationScheme;
+        });
+
+        // Configure Role-based Authorization Policies
+        builder.Services.AddAuthorization(options =>
+        {
+            options.AddPolicy("AdminOnly", policy =>
+                policy.RequireRole(BBV.HR.Application.Common.Constants.Roles.Admin));
+            options.AddPolicy("ManagerOrAdmin", policy =>
+                policy.RequireRole(BBV.HR.Application.Common.Constants.Roles.Admin, BBV.HR.Application.Common.Constants.Roles.Manager));
+            options.AddPolicy("EmployeeAccess", policy =>
+                policy.RequireRole(
+                    BBV.HR.Application.Common.Constants.Roles.Admin,
+                    BBV.HR.Application.Common.Constants.Roles.Manager,
+                    BBV.HR.Application.Common.Constants.Roles.Employee));
+        });
 
         var app = builder.Build();
 

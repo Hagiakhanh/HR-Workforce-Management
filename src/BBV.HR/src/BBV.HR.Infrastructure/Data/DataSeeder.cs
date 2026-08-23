@@ -9,32 +9,52 @@ public static class DataSeeder
 {
     public static async Task SeedAsync(ApplicationDbContext context)
     {
-        // Ensure database is created
-        await context.Database.MigrateAsync();
+        var strategy = context.Database.CreateExecutionStrategy();
+        await strategy.ExecuteAsync(async () =>
+        {
+            // Ensure database is created and migrations applied
+            await context.Database.MigrateAsync();
+            await SeedDataInternalAsync(context);
+        });
+    }
+
+    private static async Task SeedDataInternalAsync(ApplicationDbContext context)
+    {
 
         // 1. Seed Employees
         if (!await context.Employees.AnyAsync())
         {
+            var passwordHash = BCrypt.Net.BCrypt.HashPassword("Password123!");
+
             var emp1 = new Employee
             {
                 Id = Guid.Parse("11111111-1111-1111-1111-111111111111"),
                 FirstName = "An",
                 LastName = "Nguyen Van",
-                EmployeeCode = "EMP-001"
+                EmployeeCode = "EMP-001",
+                Email = "admin@bbv.vn",
+                PasswordHash = passwordHash,
+                Role = BBV.HR.Application.Common.Constants.Roles.Admin
             };
             var emp2 = new Employee
             {
                 Id = Guid.Parse("22222222-2222-2222-2222-222222222222"),
                 FirstName = "Binh",
                 LastName = "Tran Thi",
-                EmployeeCode = "EMP-002"
+                EmployeeCode = "EMP-002",
+                Email = "manager@bbv.vn",
+                PasswordHash = passwordHash,
+                Role = BBV.HR.Application.Common.Constants.Roles.Manager
             };
             var emp3 = new Employee
             {
                 Id = Guid.Parse("33333333-3333-3333-3333-333333333333"),
                 FirstName = "Cuong",
                 LastName = "Le Van",
-                EmployeeCode = "EMP-003"
+                EmployeeCode = "EMP-003",
+                Email = "employee@bbv.vn",
+                PasswordHash = passwordHash,
+                Role = BBV.HR.Application.Common.Constants.Roles.Employee
             };
 
             await context.Employees.AddRangeAsync(emp1, emp2, emp3);

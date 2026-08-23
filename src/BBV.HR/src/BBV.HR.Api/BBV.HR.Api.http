@@ -1,6 +1,42 @@
-@BBV.HR.Api_HostAddress = http://localhost:5072
+@BBV.HR.Api_HostAddress = https://localhost:7072
 
-GET {{BBV.HR.Api_HostAddress}}/weatherforecast/
+### 1. OpenID Connect Discovery Document
+GET {{BBV.HR.Api_HostAddress}}/.well-known/openid-configuration
 Accept: application/json
 
-###
+### 2. Token Exchange - Password Flow (Admin login)
+# @name adminLogin
+POST {{BBV.HR.Api_HostAddress}}/connect/token
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=password&username=admin@bbv.vn&password=Password123!&scope=openid profile email roles api
+
+### 3. Token Exchange - Password Flow (Manager login)
+# @name managerLogin
+POST {{BBV.HR.Api_HostAddress}}/connect/token
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=password&username=manager@bbv.vn&password=Password123!&scope=openid profile email roles api
+
+### 4. Token Exchange - Password Flow (Employee login)
+# @name employeeLogin
+POST {{BBV.HR.Api_HostAddress}}/connect/token
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=password&username=employee@bbv.vn&password=Password123!&scope=openid profile email roles api
+
+### 5. Token Exchange - Client Credentials Flow (M2M)
+# @name serviceLogin
+POST {{BBV.HR.Api_HostAddress}}/connect/token
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=client_credentials&client_id=bbv-hr-service&client_secret=bbv-service-secret-key-12345&scope=api
+
+### 6. UserInfo Endpoint (using Admin Access Token)
+@accessToken = {{adminLogin.response.body.access_token}}
+GET {{BBV.HR.Api_HostAddress}}/connect/userinfo
+Authorization: Bearer {{accessToken}}
+
+### 7. Get Projects (Protected API)
+GET {{BBV.HR.Api_HostAddress}}/api/projects
+Authorization: Bearer {{accessToken}}

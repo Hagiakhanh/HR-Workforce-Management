@@ -26,4 +26,11 @@ public class EmployeeRepository : IEmployeeRepository
             .AsNoTracking()
             .FirstOrDefaultAsync(e => e.Id == employeeId);
     }
+
+    public async Task<Employee?> GetByEmailAsync(string email)
+    {
+        return await _dbContext.Employees
+            .AsNoTracking()
+            .FirstOrDefaultAsync(e => e.Email.ToLower() == email.ToLower());
+    }
 }
