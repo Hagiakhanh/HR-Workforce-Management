@@ -6,6 +6,9 @@ public class Employee
     public string FirstName { get; set; } = string.Empty;
     public string LastName { get; set; } = string.Empty;
     public string EmployeeCode { get; set; } = string.Empty;
+    public string Email { get; set; } = string.Empty;
+    public string PasswordHash { get; set; } = string.Empty;
+    public string Role { get; set; } = Common.Constants.Roles.Employee;
 
     // Navigation properties
     public ICollection<Project> ManagedProjects { get; set; } = new List<Project>();

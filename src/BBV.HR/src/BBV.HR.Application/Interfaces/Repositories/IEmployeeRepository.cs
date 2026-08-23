@@ -6,4 +6,5 @@ public interface IEmployeeRepository
 {
     Task<bool> ExistsAsync(Guid employeeId);
     Task<Employee?> GetByIdAsync(Guid employeeId);
+    Task<Employee?> GetByEmailAsync(string email);
 }

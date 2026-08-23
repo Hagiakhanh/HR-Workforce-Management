@@ -40,6 +40,24 @@ public static class WebApplicationExtensions
             {
                 Title = "BBV.HR API",
                 Version = "v1",
+                Description = "BBV HR & Workforce Management API with OpenIddict OAuth2/OIDC"
+            });
+
+            var securityScheme = new OpenApiSecurityScheme
+            {
+                Name = "Authorization",
+                Type = SecuritySchemeType.Http,
+                Scheme = "bearer",
+                BearerFormat = "JWT",
+                In = ParameterLocation.Header,
+                Description = "Enter JWT Bearer token format: Bearer {token}"
+            };
+
+            options.AddSecurityDefinition("Bearer", securityScheme);
+
+            options.AddSecurityRequirement(doc => new OpenApiSecurityRequirement
+            {
+                [new OpenApiSecuritySchemeReference("Bearer")] = []
             });
         });
 
